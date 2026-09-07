@@ -1,0 +1,26 @@
+# build output
+dist/
+.astro/
+node_modules/
+
+# Derived web assets ARE committed (src/assets/projects/**). Cloudflare Pages
+# builds from this repo and has no access to the masters on Jess's disk, so if
+# they were ignored the build would have nothing to optimise. They are ~600KB
+# each after scripts/build-assets.mjs, ~100MB total — fine for git, and well
+# inside Pages' 25 MiB per-asset cap.
+#
+# The masters themselves (~2.1GB, up to 41MB per file) never enter the repo.
+
+# environment / secrets
+.env
+.env.production
+.dev.vars
+.wrangler/
+
+.DS_Store
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Transfer bundles from Cowork sessions — not part of the site.
+_*.tar.gz

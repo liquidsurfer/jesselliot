@@ -1,0 +1,436 @@
+---
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { landingPool, coverFor } from '../lib/gallery';
+
+/*
+	The landing: one strip of work, held at 58% down the viewport, that travels
+	sideways as you scroll down. Ported from the design system's ScrollStage —
+	its readme is explicit that "vertical scroll input translates the work field
+	horizontally … no headline sits on this stage; the images are the whole view."
+
+	Two layers of behaviour:
+
+	  · Baseline (no JS, reduced motion, touch): a plain horizontal strip you
+	    swipe or shift-scroll. Same tiles, same position, nothing hijacked.
+	  · Enhanced (pointer + motion allowed): the strip is lifted into a fixed
+	    layer and driven from scrollY at 1.25×, wrapping invisibly at the seam so
+	    it never ends.
+
+	One box per project. The image inside it is picked per page load from that
+	project's `landing` pool, before first paint, so only the chosen variant is
+	ever fetched.
+*/
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+const boxes = await Promise.all(
+	projects.map(async (project) => {
+		const pool = landingPool(project);
+
+		const variants = await Promise.all(
+			pool.map(async (image) => {
+				const built = await getImage({
+					src: image.src,
+					widths: [220, 330, 440, 660],
+					format: 'webp',
+				});
+				return { src: built.src, srcset: built.srcSet.attribute };
+			}),
+		);
+
+		const { yearStart, yearEnd } = project.data;
+		const years = yearEnd && yearEnd !== yearStart ? `${yearStart}–${yearEnd}` : `${yearStart}`;
+
+		return {
+			href: `/projects/${project.id}/`,
+			title: project.data.title,
+			meta: `${project.data.location} — ${years}`,
+			alt: pool[0]?.alt ?? project.data.title,
+			fallback: variants[0],
+			variants,
+		};
+	}),
+);
+
+const ogImage = coverFor(projects[0])?.src.src;
+---
+
+<Base
+	title="Jess Elliot"
+	description="Stage design, scenic painting and immersive environments for festivals and events. Cape Town, Portugal and Germany."
+	ogImage={ogImage}
+	overlay
+	bare
+>
+	<!-- Height for the scroll runway; set by the enhancement, zero without it. -->
+	<div class="runway" data-runway aria-hidden="true"></div>
+
+	<section class="stage" data-stage aria-label="Selected work">
+		{
+			boxes.map((box) => (
+				<a class="box" href={box.href} data-box>
+					<figure>
+						<div class="frame">
+							{box.variants.length ? (
+								<img
+									data-variants={JSON.stringify(box.variants)}
+									sizes="(max-width: 760px) 78vw, 220px"
+									alt={box.alt}
+									decoding="async"
+								/>
+							) : (
+								<span class="empty">No image yet</span>
+							)}
+						</div>
+						<figcaption>
+							<span class="box-title">{box.title}</span>
+							<span class="box-meta">{box.meta}</span>
+						</figcaption>
+					</figure>
+				</a>
+			))
+		}
+	</section>
+</Base>
+
+<script is:inline>
+	// Pick each box's image before first paint, so the chosen variant is the only
+	// one the browser requests.
+	(function () {
+		var images = document.querySelectorAll('img[data-variants]');
+		for (var i = 0; i < images.length; i++) {
+			var el = images[i];
+			var list;
+			try {
+				list = JSON.parse(el.getAttribute('data-variants'));
+			} catch (e) {
+				continue;
+			}
+			if (!list || !list.length) continue;
+			var pick = list[Math.floor(Math.random() * list.length)];
+			if (pick.srcset) el.setAttribute('srcset', pick.srcset);
+			el.setAttribute('src', pick.src);
+		}
+	})();
+</script>
+
+<style>
+	/*
+	 * The shipped landing template paints the page --paper-sand rather than
+	 * white, and hides the scrollbar so the sideways travel reads as the only
+	 * motion. Scoped to this page via :global on the document element.
+	 */
+	:global(html:has(.stage)),
+	:global(html:has(.stage) body) {
+		background: var(--paper-sand);
+	}
+
+	:global(html:has(.stage))::-webkit-scrollbar {
+		width: 0;
+		height: 0;
+	}
+
+	.runway {
+		height: 0;
+	}
+
+	/* ── Baseline: a plain strip, swipeable, no scroll hijacking ────── */
+
+	.stage {
+		/* One source of truth for the tile size, so the vertical offset below
+		   can be derived from it rather than guessed. */
+		--box-w: clamp(150px, 15vw, 240px);
+
+		display: flex;
+		align-items: flex-start;
+		gap: calc(100vw * 0.035);
+		/* Sit the strip's centre at 58vh, same as the driven layer. */
+		padding: calc(58vh - var(--box-w) / var(--strip-image-ratio) / 2) var(--page-margin)
+			var(--space-8);
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+
+	.stage::-webkit-scrollbar {
+		height: 0;
+	}
+
+	.box {
+		flex: 0 0 auto;
+		width: var(--box-w);
+		display: block;
+		text-decoration: none;
+	}
+
+	/* `display: block` above outranks the UA rule for [hidden]; restate it or
+	   the originals stay visible once the enhancement clones them. */
+	.box[hidden] {
+		display: none;
+	}
+
+	/* ── Enhanced: lifted into a fixed layer, driven from scrollY ───── */
+
+	.stage.driven {
+		position: fixed;
+		inset: 0;
+		display: block;
+		padding: 0;
+		overflow: hidden;
+		pointer-events: none;
+		gap: 0;
+	}
+
+	.stage.driven .box {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: auto;
+		pointer-events: auto;
+		will-change: transform;
+	}
+
+	.box figure {
+		margin: 0;
+	}
+
+	.frame {
+		position: relative;
+		width: 100%;
+		aspect-ratio: var(--strip-image-ratio);
+		overflow: hidden;
+		background: var(--surface-sunken);
+		display: grid;
+		place-items: center;
+	}
+
+	.frame img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition:
+			transform var(--dur-4) var(--ease-drift),
+			filter var(--dur-3) var(--ease-drift);
+	}
+
+	.frame:has(.empty) {
+		background: transparent;
+		border: var(--border-hair);
+	}
+
+	.empty {
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-label);
+		text-transform: uppercase;
+		color: var(--text-muted);
+	}
+
+	/* ScrollStage reserves 56px under every tile so the strip keeps one baseline
+	   whether or not a caption is showing. */
+	figcaption {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		min-height: 56px;
+		padding-top: var(--space-3);
+	}
+
+	.box-title {
+		font-family: var(--font-display);
+		font-size: var(--text-caption);
+		text-transform: uppercase;
+		letter-spacing: var(--track-nav);
+		color: var(--text-primary);
+	}
+
+	.box-meta {
+		font-family: var(--font-ui);
+		font-size: var(--text-micro);
+		text-transform: uppercase;
+		letter-spacing: var(--track-label);
+		color: var(--text-muted);
+	}
+
+	/*
+	 * Desktop: the caption is the hover reward. Touch has no hover, so it stays
+	 * visible. Tile hover is the design system's -6px lift with the image
+	 * breathing to 1.06 (WorkTile.jsx ships 1.06; the readme's 1.045 and
+	 * --hover-scale's 1.03 are both stale).
+	 */
+	@media (hover: hover) and (pointer: fine) {
+		figcaption {
+			opacity: 0;
+			transform: translateY(6px);
+			transition:
+				opacity var(--dur-2) var(--ease-drift),
+				transform var(--dur-3) var(--ease-drift);
+		}
+
+		.box:hover figcaption,
+		.box:focus-visible figcaption {
+			opacity: 1;
+			transform: none;
+		}
+
+		.box:hover .frame img,
+		.box:focus-visible .frame img {
+			transform: scale(1.06);
+			filter: saturate(1.06);
+		}
+	}
+
+	@media (max-width: 760px) {
+		.stage {
+			scroll-snap-type: x mandatory;
+			gap: var(--space-5);
+			padding-top: var(--space-8);
+		}
+
+		.box {
+			width: 78vw;
+			scroll-snap-align: center;
+		}
+	}
+</style>
+
+<script>
+	/*
+		ScrollStage, ported.
+
+		A spacer of height `loop / speed + viewport` gives the page something to
+		scroll; the tiles live in a fixed layer and are translated by
+		`scrollY * speed`. Each tile's position is wrapped modulo the loop length
+		and only rendered within a screen's reach, so a handful of nodes cover an
+		endless strip. When scroll passes the loop the page is silently reset by
+		exactly one loop, which is invisible because the strip is periodic.
+	*/
+	// Matches --strip-image-ratio in tokens.css (330 ÷ 444, from the source comp).
+	const RATIO = 0.744;
+	const SPEED = 1.25;
+	const GAP = 0.035; // of viewport width
+	const SCALE = 0.5; // the landing template's small tiles
+	const CENTER_Y = 0.58; // between the half-way mark and two thirds
+	const TOP_INSET = 190;
+	const BOTTOM_INSET = 96;
+	const CAPTION = 56;
+	const CYCLES = 4;
+	const MARGIN = 240; // render reach beyond each edge
+
+	const stage = document.querySelector<HTMLElement>('[data-stage]');
+	const runway = document.querySelector<HTMLElement>('[data-runway]');
+	const source = [...document.querySelectorAll<HTMLElement>('[data-box]')];
+
+	const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+	const wide = window.matchMedia('(min-width: 761px)');
+	const motion = window.matchMedia('(prefers-reduced-motion: no-preference)');
+
+	// Anything else — touch, narrow, reduced motion, no JS — keeps the plain
+	// swipeable strip the CSS already provides.
+	if (stage && runway && source.length && fine.matches && wide.matches && motion.matches) {
+		type Slot = { el: HTMLElement; left: number };
+
+		let slots: Slot[] = [];
+		let loop = 1;
+		let tileWidth = 0;
+		let margin = 0;
+
+		// One pass of the projects per cycle, each pass shuffled, so the order
+		// keeps changing while the rhythm stays even. Seeded so a resize doesn't
+		// reshuffle under the visitor.
+		let seed = 11;
+		const rand = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+
+		function build() {
+			slots.forEach((s) => s.el.remove());
+			slots = [];
+
+			const w = window.innerWidth;
+			const h = window.innerHeight;
+
+			const top0 = Math.min(TOP_INSET, h * 0.26);
+			const foot = Math.min(BOTTOM_INSET, h * 0.12);
+			const band = Math.max(200, h - top0 - foot - CAPTION);
+			const ih = Math.min(band, 620) * SCALE;
+			const iw = ih * RATIO;
+			const top = h * CENTER_Y - ih / 2;
+			const step = iw + w * GAP;
+
+			tileWidth = iw;
+			seed = 11;
+
+			// Where the strip sits at rest. Mirrors --page-margin's
+			// clamp(24px, 4vw, 56px). Applied when placing, not baked into the
+			// slot positions — the loop has to stay a whole number of steps or
+			// the wrap leaves a gap one margin wide.
+			margin = Math.min(56, Math.max(24, w * 0.04));
+
+			let cursor = 0;
+			for (let c = 0; c < CYCLES; c++) {
+				const order = source.map((_, i) => i);
+				for (let i = order.length - 1; i > 0; i--) {
+					const j = Math.floor(rand() * (i + 1));
+					[order[i], order[j]] = [order[j], order[i]];
+				}
+				for (const index of order) {
+					const el = source[index].cloneNode(true) as HTMLElement;
+					el.style.width = `${iw}px`;
+					el.style.top = `${top}px`;
+					// Repeats past the first pass are the same eight projects coming
+					// round again; announcing them again would make the strip an
+					// endless list to a screen reader.
+					if (c > 0) {
+						el.setAttribute('aria-hidden', 'true');
+						el.setAttribute('tabindex', '-1');
+					}
+					stage!.appendChild(el);
+					slots.push({ el, left: cursor });
+					cursor += step;
+				}
+			}
+			loop = cursor;
+
+			source.forEach((el) => (el.hidden = true));
+			stage!.classList.add('driven');
+			runway!.style.height = `${loop / SPEED + h}px`;
+		}
+
+		function place() {
+			const w = window.innerWidth;
+			const x = window.scrollY * SPEED;
+			for (const slot of slots) {
+				let pos = (((slot.left - x) % loop) + loop) % loop;
+				if (pos > loop - tileWidth - MARGIN) pos -= loop;
+				const visible = pos > -tileWidth - MARGIN && pos < w + MARGIN;
+				slot.el.style.visibility = visible ? '' : 'hidden';
+				if (visible) slot.el.style.transform = `translate3d(${pos + margin}px,0,0)`;
+			}
+		}
+
+		let wrapping = false;
+		function onScroll() {
+			if (wrapping) return;
+			const span = loop / SPEED;
+			if (window.scrollY >= span) {
+				wrapping = true;
+				window.scrollTo(0, window.scrollY - span);
+				wrapping = false;
+			}
+			place();
+		}
+
+		build();
+		place();
+
+		window.addEventListener('scroll', onScroll, { passive: true });
+
+		let resizeTimer: number;
+		window.addEventListener('resize', () => {
+			window.clearTimeout(resizeTimer);
+			resizeTimer = window.setTimeout(() => {
+				build();
+				place();
+			}, 150);
+		});
+	}
+</script>

@@ -1,0 +1,89 @@
+---
+/*
+	The design system's footer: a hairline-topped band with the wordmark set in
+	type, the email address as the loudest thing in it, and micro links. Its
+	Footer.prompt.md is explicit — "the email is the loudest thing in the footer
+	on purpose; don't add a Button here."
+*/
+const year = new Date().getFullYear();
+const email = 'hello@jesselliot.com';
+
+const links = [
+	{ href: '/about/', label: 'About the artist' },
+	{ href: '/projects/', label: 'Projects' },
+	{ href: '/contact/', label: 'Contact' },
+];
+---
+
+<footer class="site-footer page">
+	<div class="footer-band">
+		<p class="wordmark">Jess Elliot</p>
+
+		<a class="email" href={`mailto:${email}`}>{email}</a>
+
+		<nav aria-label="Footer">
+			{links.map((link) => <a href={link.href}>{link.label}</a>)}
+		</nav>
+	</div>
+
+	<p class="colophon">© {year} Jess Elliot. Photography by the credited photographers.</p>
+</footer>
+
+<style>
+	.site-footer {
+		margin-top: var(--space-11);
+		padding-block: var(--space-9) var(--space-6);
+		border-top: var(--border-hair);
+	}
+
+	.footer-band {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: var(--space-6);
+	}
+
+	.wordmark {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--text-subhead);
+		text-transform: uppercase;
+		letter-spacing: var(--track-nav);
+		line-height: 1.06;
+	}
+
+	.email {
+		font-family: var(--font-display);
+		font-size: var(--text-heading);
+		letter-spacing: 0.01em;
+		text-decoration: none;
+	}
+
+	.footer-band nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-5);
+	}
+
+	.footer-band nav a {
+		font-size: var(--text-micro);
+		text-transform: uppercase;
+		letter-spacing: var(--track-label);
+		color: var(--text-muted);
+		text-decoration: none;
+		transition: color var(--dur-1) var(--ease-drift);
+	}
+
+	.footer-band nav a:hover {
+		color: var(--text-primary);
+	}
+
+	.colophon {
+		margin: var(--space-8) 0 0;
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-label);
+		text-transform: uppercase;
+		color: var(--text-muted);
+	}
+</style>

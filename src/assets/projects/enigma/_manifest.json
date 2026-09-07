@@ -1,0 +1,330 @@
+[
+	{
+		"file": "enigma-01.jpg",
+		"source": "1ST PUNKY PINK.JPG",
+		"width": 2318,
+		"height": 1536,
+		"orientation": "landscape",
+		"credit": null
+	},
+	{
+		"file": "enigma-02.jpg",
+		"source": "4ef19643-fa13-4539-9da7-8c9a83d5edc8 2.jpg",
+		"width": 1280,
+		"height": 854,
+		"orientation": "landscape",
+		"credit": null
+	},
+	{
+		"file": "enigma-03.jpg",
+		"source": "30dc478c-e435-41a0-aa02-cf000a992adf.jpg",
+		"width": 1697,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null
+	},
+	{
+		"file": "enigma-04.jpg",
+		"source": "660d3d1c-7931-4a50-9b1a-8bf892a6dd50 2.jpg",
+		"width": 1170,
+		"height": 1168,
+		"orientation": "landscape",
+		"credit": null
+	},
+	{
+		"file": "enigma-05.jpg",
+		"source": "000697840023_20.jpg",
+		"width": 1696,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null
+	},
+	{
+		"file": "enigma-06.jpg",
+		"source": "000697840028_25 2.jpg",
+		"width": 1697,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null
+	},
+	{
+		"file": "enigma-07.jpg",
+		"source": "000697840029_26.jpg",
+		"width": 1697,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null
+	},
+	{
+		"file": "enigma-08.jpg",
+		"source": "DIARYOFROSS_-2.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-09.jpg",
+		"source": "DIARYOFROSS_-3.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-10.jpg",
+		"source": "DIARYOFROSS_-4.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-11.jpg",
+		"source": "DIARYOFROSS_-7.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-12.jpg",
+		"source": "DIARYOFROSS_-9.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-13.jpg",
+		"source": "DIARYOFROSS_-10.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-14.jpg",
+		"source": "DIARYOFROSS_-12.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-15.jpg",
+		"source": "DIARYOFROSS_-42tt.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-16.jpg",
+		"source": "DIARYOFROSS_-44.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-17.jpg",
+		"source": "DIARYOFROSS_-45.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-18.jpg",
+		"source": "DIARYOFROSS_-47.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-19.jpg",
+		"source": "DIARYOFROSS_-48tt.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-20.jpg",
+		"source": "DIARYOFROSS_-54.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-21.jpg",
+		"source": "DIARYOFROSS_-56.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-22.jpg",
+		"source": "DIARYOFROSS_-62tt.jpg",
+		"width": 2560,
+		"height": 2048,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-23.jpg",
+		"source": "DIARYOFROSS_-63tt.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-24.jpg",
+		"source": "DIARYOFROSS_-64tt.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-25.jpg",
+		"source": "DIARYOFROSS_-69.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-26.jpg",
+		"source": "DIARYOFROSS_-177tt.jpg",
+		"width": 2560,
+		"height": 2048,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-27.jpg",
+		"source": "DIARYOFROSS_-181.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-28.jpg",
+		"source": "DIARYOFROSS_-185.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-29.jpg",
+		"source": "DIARYOFROSS_-186.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-30.jpg",
+		"source": "DIARYOFROSS_-187tt.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-31.jpg",
+		"source": "DIARYOFROSS_-190tt.jpg",
+		"width": 2048,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-32.jpg",
+		"source": "DIARYOFROSS_-238.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-33.jpg",
+		"source": "DIARYOFROSS_-248.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-34.jpg",
+		"source": "DIARYOFROSS_-252.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-35.jpg",
+		"source": "DIARYOFROSS_-255.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": "Diary of Ross"
+	},
+	{
+		"file": "enigma-36.jpg",
+		"source": "ENIGMA DETAILS.JPG",
+		"width": 1697,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null
+	},
+	{
+		"file": "enigma-37.jpg",
+		"source": "ENIGMA TREE BOOTH.jpg",
+		"width": 1697,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null
+	},
+	{
+		"file": "enigma-38.jpg",
+		"source": "IMG_0136.JPG",
+		"width": 2560,
+		"height": 1716,
+		"orientation": "landscape",
+		"credit": null
+	},
+	{
+		"file": "enigma-39.jpg",
+		"source": "IMG_0150 2.JPG",
+		"width": 2560,
+		"height": 1731,
+		"orientation": "landscape",
+		"credit": null
+	},
+	{
+		"file": "enigma-40.jpg",
+		"source": "IMG_1634.JPG",
+		"width": 2318,
+		"height": 1536,
+		"orientation": "landscape",
+		"credit": null
+	},
+	{
+		"file": "enigma-41.jpg",
+		"source": "IMG_2969.jpeg",
+		"width": 1179,
+		"height": 1447,
+		"orientation": "portrait",
+		"credit": null
+	}
+]

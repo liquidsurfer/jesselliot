@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	/** Absolute or site-relative path to the social preview image. */
+	ogImage?: string;
+	/** Landing page: header floats over the content, no footer rule. */
+	overlay?: boolean;
+	bare?: boolean;
+}
+
+const { title, description, ogImage, overlay = false, bare = false } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const social = ogImage ? new URL(ogImage, Astro.site) : undefined;
+const fullTitle = title === 'Jess Elliot' ? title : `${title} — Jess Elliot`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:site_name" content="Jess Elliot" />
+		{social && <meta property="og:image" content={social} />}
+		<meta name="twitter:card" content={social ? 'summary_large_image' : 'summary'} />
+
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<slot name="head" />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<Nav overlay={overlay} />
+		<main id="main" tabindex="-1">
+			<slot />
+		</main>
+		{!bare && <Footer />}
+	</body>
+</html>

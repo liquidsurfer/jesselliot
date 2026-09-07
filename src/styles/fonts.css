@@ -1,0 +1,89 @@
+/*
+ * Self-hosted variable fonts, vendored into src/fonts/.
+ *
+ * The files come from the @fontsource-variable packages (Bodoni Moda and
+ * Instrument Sans, both SIL OFL), but are committed rather than installed. Two
+ * reasons:
+ *
+ * 1. No build-time network. Astro's font provider API fetches from
+ *    fonts.google.com during the build, so every deploy depends on a third
+ *    party being reachable from Cloudflare's build container — and when it
+ *    isn't, the build still *succeeds*, emits no @font-face, leaves the CSS
+ *    variables undefined, and silently ships the whole site in the browser's
+ *    default serif.
+ * 2. No package dependency for six static files totalling 140KB.
+ *
+ * Only the latin and latin-ext subsets are here. unicode-range means the
+ * browser downloads latin-ext only when a character actually needs it, so
+ * including it costs nothing until a name like "Lärz" or a collaborator's
+ * surname needs it — and then it is there.
+ *
+ * Vite hashes and fingerprints these at build, so they are served immutable.
+ */
+
+/* ── Bodoni Moda (display) ──────────────────────────────────────────── */
+
+@font-face {
+	font-family: 'Bodoni Moda Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400 900;
+	src: url('../fonts/bodoni-moda-latin-wght-normal.woff2') format('woff2-variations');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Bodoni Moda Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400 900;
+	src: url('../fonts/bodoni-moda-latin-ext-wght-normal.woff2') format('woff2-variations');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+		U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+		U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: 'Bodoni Moda Variable';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 400 900;
+	src: url('../fonts/bodoni-moda-latin-wght-italic.woff2') format('woff2-variations');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Bodoni Moda Variable';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 400 900;
+	src: url('../fonts/bodoni-moda-latin-ext-wght-italic.woff2') format('woff2-variations');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+		U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+		U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ── Instrument Sans (UI) ───────────────────────────────────────────── */
+
+@font-face {
+	font-family: 'Instrument Sans Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400 700;
+	src: url('../fonts/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Instrument Sans Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 400 700;
+	src: url('../fonts/instrument-sans-latin-ext-wght-normal.woff2') format('woff2-variations');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+		U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+		U+2C60-2C7F, U+A720-A7FF;
+}

@@ -1,0 +1,244 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { coverFor } from '../../lib/gallery';
+import ServiceTags from '../../components/ServiceTags.astro';
+
+const all = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+	(a, b) => a.data.order - b.data.order,
+);
+
+// Sub-projects (Lamps inside The Nest) are listed under their parent rather
+// than as siblings — they only make sense in that context.
+const parents = all.filter((p) => !p.data.parent);
+const childrenOf = (id: string) => all.filter((p) => p.data.parent?.id === id);
+
+const years = (p: (typeof all)[number]) =>
+	p.data.yearEnd && p.data.yearEnd !== p.data.yearStart
+		? `${p.data.yearStart}–${p.data.yearEnd}`
+		: `${p.data.yearStart}`;
+
+const ogImage = coverFor(all[0])?.src.src;
+const isPending = (value: string) => value.trim() === '[TO WRITE]';
+---
+
+<Base
+	title="Projects"
+	description="Projects by Jess Elliot."
+	ogImage={ogImage}
+>
+	<header class="page intro">
+		<p class="eyebrow">Projects</p>
+		<h1 class="pending">[TO WRITE]</h1>
+	</header>
+
+	<div class="page project-list">
+		{
+			parents.map((project) => {
+				const cover = coverFor(project);
+				const children = childrenOf(project.id);
+				return (
+					<article class="project-row">
+						<a class="project-image" href={`/projects/${project.id}/`}>
+							{cover ? (
+								<Image
+									src={cover.src}
+									alt={cover.alt}
+									widths={[500, 900, 1400]}
+									sizes="(max-width: 900px) 92vw, 46vw"
+									loading="lazy"
+								/>
+							) : (
+								<div class="image-pending" aria-hidden="true" />
+							)}
+						</a>
+
+						<div class="project-body">
+							<p class="project-meta">
+								{[project.data.client, project.data.location, years(project)]
+									.filter(Boolean)
+									.join(' · ')}
+							</p>
+							<h2>
+								<a href={`/projects/${project.id}/`}>{project.data.title}</a>
+							</h2>
+							<p class:list={['project-summary', { pending: isPending(project.data.summary) }]}>{project.data.summary}</p>
+
+							<blockquote class:list={['project-pull', { pending: isPending(project.data.pull) }]}>{project.data.pull}</blockquote>
+
+							<ServiceTags tags={project.data.tags} />
+
+							{children.length > 0 && (
+								<p class="project-children">
+									<span class="label">Within this</span>
+									{children.map((child, i) => (
+										<>
+											{i > 0 && ', '}
+											<a href={`/projects/${child.id}/`}>{child.data.title}</a>
+										</>
+									))}
+								</p>
+							)}
+
+							<a class="project-link" href={`/projects/${project.id}/`}>
+								See the project
+							</a>
+						</div>
+					</article>
+				);
+			})
+		}
+	</div>
+</Base>
+
+<style>
+	.intro {
+		padding-block: var(--space-8) var(--space-9);
+	}
+
+	.intro h1 {
+		font-size: var(--text-display);
+		max-width: 18ch;
+		margin-block: var(--space-4) var(--space-5);
+	}
+
+	.lede {
+		font-size: var(--text-subhead);
+		color: var(--text-secondary);
+	}
+
+	.project-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-10);
+		padding-bottom: var(--space-9);
+	}
+
+	.project-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: var(--gutter-strip);
+		align-items: start;
+	}
+
+	/* Alternate the image side so the page doesn't read as a spreadsheet. */
+	.project-row:nth-child(even) .project-image {
+		order: 2;
+	}
+
+	.project-image {
+		display: block;
+		line-height: 0;
+		overflow: hidden;
+	}
+
+	.project-image :global(img) {
+		width: 100%;
+		height: auto;
+		transition: transform var(--dur-4) var(--ease-drift);
+	}
+
+	.project-image:hover :global(img) {
+		transform: scale(var(--hover-scale));
+	}
+
+	.image-pending {
+		aspect-ratio: 4 / 3;
+		background: var(--surface-sunken);
+	}
+
+	.project-body {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-4);
+		padding-top: var(--space-2);
+	}
+
+	.project-meta {
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-label);
+		text-transform: uppercase;
+		color: var(--text-muted);
+	}
+
+	.project-body h2 {
+		font-size: var(--text-title);
+	}
+
+	.project-body h2 a {
+		text-decoration: none;
+	}
+
+	.project-summary {
+		color: var(--text-secondary);
+		max-width: 46ch;
+	}
+
+	.project-role {
+		font-size: var(--text-caption);
+		color: var(--text-muted);
+		max-width: 46ch;
+	}
+
+	.project-role .label {
+		display: block;
+		margin-bottom: 2px;
+	}
+
+	/* The golden link: what drew Jess to the project. Given the most visual
+	   weight of anything in this block on purpose. */
+	.project-pull {
+		margin: var(--space-2) 0;
+		padding-left: var(--space-5);
+		border-left: 1px solid var(--accent);
+		font-family: var(--font-display), Didot, serif;
+		font-size: var(--text-subhead);
+		line-height: var(--lh-body);
+		color: var(--text-primary);
+		max-width: 44ch;
+	}
+
+	.project-children {
+		font-size: var(--text-caption);
+		color: var(--text-muted);
+	}
+
+	.project-children .label {
+		display: block;
+		margin-bottom: 2px;
+	}
+
+	.project-link {
+		margin-top: var(--space-2);
+		font-size: var(--text-caption);
+		letter-spacing: var(--track-nav);
+		text-transform: uppercase;
+		text-decoration: none;
+		border-bottom: 1px solid var(--border-strong);
+		padding-bottom: var(--space-1);
+	}
+
+	@media (max-width: 900px) {
+		.project-row {
+			grid-template-columns: 1fr;
+			gap: var(--space-5);
+		}
+		.project-row:nth-child(even) .project-image {
+			order: 0;
+		}
+		.project-list {
+			gap: var(--space-9);
+		}
+	}
+
+	/* Matches the depth of `.intro h1` — see the note in about.astro. */
+	.intro h1.pending {
+		font-family: var(--font-ui);
+		font-size: var(--text-body);
+		letter-spacing: var(--track-label);
+		color: var(--text-muted);
+		max-width: none;
+	}
+</style>

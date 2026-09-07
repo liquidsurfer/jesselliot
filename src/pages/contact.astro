@@ -1,0 +1,361 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+	title="Contact"
+	description="Contact Jess Elliot."
+>
+	<div class="page contact">
+		<header class="contact-intro">
+			<p class="eyebrow">Contact</p>
+			<h1 class="pending">[TO WRITE]</h1>
+		</header>
+
+		<form id="enquiry" method="post" action="/api/enquiry" novalidate>
+			<div class="field-row">
+				<p class="field">
+					<label for="name">Your name <span aria-hidden="true">*</span></label>
+					<input id="name" name="name" type="text" required autocomplete="name" />
+				</p>
+				<p class="field">
+					<label for="email">Email <span aria-hidden="true">*</span></label>
+					<input id="email" name="email" type="email" required autocomplete="email" />
+				</p>
+			</div>
+
+			<div class="field-row">
+				<p class="field">
+					<label for="phone">Phone <span class="optional">optional</span></label>
+					<input id="phone" name="phone" type="tel" autocomplete="tel" />
+				</p>
+				<p class="field">
+					<label for="organisation">
+						Festival or organisation <span class="optional">optional</span>
+					</label>
+					<input id="organisation" name="organisation" type="text" autocomplete="organization" />
+				</p>
+			</div>
+
+			<fieldset class="field">
+				<legend>What are you interested in?</legend>
+				<div class="checks">
+					{
+						services.map((service) => (
+							<label class="check">
+								<input type="checkbox" name="services" value={service.id} />
+								<span>{service.data.title}</span>
+							</label>
+						))
+					}
+					<label class="check">
+						<input type="checkbox" name="services" value="Not sure yet" />
+						<span>Not sure yet</span>
+					</label>
+				</div>
+			</fieldset>
+
+			<div class="field-row">
+				<p class="field">
+					<label for="location">Where is it? <span class="optional">optional</span></label>
+					<input id="location" name="location" type="text" placeholder="City, country" />
+				</p>
+				<p class="field">
+					<label for="budget">Rough budget <span class="optional">optional</span></label>
+					<input id="budget" name="budget" type="text" placeholder="Range is fine" />
+				</p>
+			</div>
+
+			<div class="field-row">
+				<p class="field">
+					<label for="dateFrom">Build starts <span class="optional">optional</span></label>
+					<input id="dateFrom" name="dateFrom" type="date" />
+				</p>
+				<p class="field">
+					<label for="dateTo">Event ends <span class="optional">optional</span></label>
+					<input id="dateTo" name="dateTo" type="date" />
+				</p>
+			</div>
+
+			<p class="field">
+				<label for="message">Tell me about it <span aria-hidden="true">*</span></label>
+				<textarea id="message" name="message" rows="7" required></textarea>
+			</p>
+
+			<!--
+				Bot prevention, three layers, cheapest first:
+				1. Honeypot — a field no human sees. Bots fill everything.
+				2. Elapsed time — a form submitted in under 3 seconds was not typed.
+				3. Cloudflare Turnstile — free, privacy-preserving, no puzzles.
+				The first two cost nothing and stop most of it; Turnstile catches
+				the rest. All three are re-checked server-side in the Function.
+			-->
+			<div class="hp" aria-hidden="true">
+				<label for="company-website">Do not fill this in</label>
+				<input id="company-website" name="company_website" type="text" tabindex="-1" autocomplete="off" />
+			</div>
+			<input type="hidden" name="started" id="started" />
+
+			<div
+				class="cf-turnstile"
+				data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x00000000000000000000AA'}
+				data-theme="light"
+			>
+			</div>
+
+			<div class="actions">
+				<button type="submit" class="submit">Send enquiry</button>
+				<p class="form-status" role="status" aria-live="polite"></p>
+			</div>
+
+			<p class="fallback">
+				Prefer email? Write to <a href="mailto:hello@jesselliot.com">hello@jesselliot.com</a>.
+			</p>
+		</form>
+	</div>
+</Base>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>('#enquiry');
+	const status = document.querySelector<HTMLElement>('.form-status');
+	const started = document.querySelector<HTMLInputElement>('#started');
+	if (started) started.value = String(Date.now());
+
+	form?.addEventListener('submit', async (event) => {
+		event.preventDefault();
+		if (!form.reportValidity()) return;
+
+		const button = form.querySelector<HTMLButtonElement>('.submit');
+		if (button) {
+			button.disabled = true;
+			button.textContent = 'Sending…';
+		}
+		if (status) status.textContent = '';
+
+		try {
+			const response = await fetch('/api/enquiry', {
+				method: 'POST',
+				body: new FormData(form),
+			});
+			const result = await response.json().catch(() => ({}));
+
+			if (response.ok) {
+				form.innerHTML = `
+					<div class="sent">
+						<h2>That's arrived.</h2>
+						<p>Jess will come back to you directly. If it's urgent,
+						<a href="mailto:hello@jesselliot.com">email her</a>.</p>
+					</div>`;
+				return;
+			}
+
+			if (status) {
+				status.textContent =
+					result.error ?? 'Something went wrong sending that. Please try again, or email directly.';
+			}
+		} catch {
+			if (status) {
+				status.textContent =
+					'Could not reach the server. Please email hello@jesselliot.com instead.';
+			}
+		} finally {
+			if (button) {
+				button.disabled = false;
+				button.textContent = 'Send enquiry';
+			}
+			// Turnstile tokens are single-use; reset so a retry gets a fresh one.
+			(window as any).turnstile?.reset?.();
+		}
+	});
+</script>
+
+<style>
+	.contact {
+		padding-block: var(--space-8) var(--space-9);
+		display: grid;
+		grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+		gap: var(--space-9) var(--gutter-strip);
+		align-items: start;
+	}
+
+	.contact-intro h1 {
+		font-size: var(--text-display);
+		max-width: 12ch;
+		margin-block: var(--space-4) var(--space-5);
+	}
+
+	.lede {
+		color: var(--text-secondary);
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+		max-width: 44rem;
+	}
+
+	.field-row {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: var(--space-5);
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin: 0;
+		border: none;
+		padding: 0;
+	}
+
+	label,
+	legend {
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-label);
+		text-transform: uppercase;
+		color: var(--text-secondary);
+		padding: 0;
+	}
+
+	.optional {
+		letter-spacing: 0;
+		text-transform: none;
+		color: var(--text-muted);
+		font-size: var(--text-caption);
+	}
+
+	.hint {
+		font-size: var(--text-caption);
+		color: var(--text-muted);
+		margin-top: var(--space-2);
+	}
+
+	input[type='text'],
+	input[type='email'],
+	input[type='tel'],
+	input[type='date'],
+	textarea {
+		width: 100%;
+		background: transparent;
+		border: none;
+		border-bottom: var(--border-hair);
+		padding: var(--space-3) 0;
+		font-size: var(--text-body);
+		transition: border-color var(--dur-1) var(--ease-drift);
+	}
+
+	input:focus,
+	textarea:focus {
+		outline: none;
+		border-bottom-color: var(--border-strong);
+	}
+
+	textarea {
+		resize: vertical;
+		border: var(--border-hair);
+		padding: var(--space-4);
+	}
+
+	.checks {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+		gap: var(--space-3);
+		margin-top: var(--space-4);
+	}
+
+	.check {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		text-transform: none;
+		letter-spacing: 0;
+		font-size: var(--text-body);
+		color: var(--text-primary);
+		cursor: pointer;
+	}
+
+	.check input {
+		width: 15px;
+		height: 15px;
+		accent-color: var(--accent);
+		flex-shrink: 0;
+	}
+
+	/* Honeypot: off-screen rather than display:none — some bots skip hidden
+	   fields, fewer skip visually-positioned ones. */
+	.hp {
+		position: absolute;
+		left: -9999px;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-5);
+		margin-top: var(--space-2);
+	}
+
+	.submit {
+		border: var(--border-ink);
+		padding: var(--space-4) var(--space-7);
+		font-size: var(--text-caption);
+		letter-spacing: var(--track-nav);
+		text-transform: uppercase;
+		transition:
+			background var(--dur-2) var(--ease-drift),
+			color var(--dur-2) var(--ease-drift);
+	}
+
+	.submit:hover:not(:disabled) {
+		background: var(--surface-inverse);
+		color: var(--text-inverse);
+	}
+
+	.submit:disabled {
+		opacity: 0.5;
+		cursor: progress;
+	}
+
+	.form-status:not(:empty) {
+		font-size: var(--text-caption);
+		color: var(--terracotta);
+	}
+
+	.fallback {
+		font-size: var(--text-caption);
+		color: var(--text-muted);
+		border-top: var(--border-hair);
+		padding-top: var(--space-5);
+	}
+
+	form :global(.sent h2) {
+		font-size: var(--text-title);
+		margin-bottom: var(--space-4);
+	}
+
+	@media (max-width: 900px) {
+		.contact {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Matches the depth of `.contact-intro h1` — see the note in about.astro. */
+	.contact-intro h1.pending {
+		font-family: var(--font-ui);
+		font-size: var(--text-body);
+		letter-spacing: var(--track-label);
+		color: var(--text-muted);
+		max-width: none;
+	}
+</style>

@@ -1,0 +1,161 @@
+/*
+ * Design tokens, ported from the Jess Elliot Design System canvas.
+ * Source: claude.ai/code/artifact/dc67c5e3-1690-479b-84b5-793b8bc8b0c3
+ *
+ * Values are verbatim from the system. The comments are the system's own
+ * notes on intent — keep them, they explain choices that otherwise read as
+ * arbitrary.
+ *
+ * Font families are defined here, backed by the @fontsource-variable packages
+ * imported in global.css. Each keeps a real fallback stack so the page is
+ * still readable if a font file fails to load.
+ */
+
+:root {
+	--font-display: 'Bodoni Moda Variable', Didot, 'Times New Roman', serif;
+	--font-ui: 'Instrument Sans Variable', 'Helvetica Neue', Helvetica, system-ui, sans-serif;
+
+	/* Ink — sampled from the wordmark and captions */
+	--ink-900: #12100e;
+	--ink-700: #3a342e;
+	--ink-500: #6b635a;
+	--ink-300: #a9a199;
+	--ink-100: #e4ded6;
+
+	/* Paper */
+	--paper: #ffffff;
+	--paper-warm: #faf7f2;
+	--paper-sand: #f1eae0;
+
+	/*
+	 * Logo palette — sampled from the hand-drawn JESS ELLIOT mark (copper gradient).
+	 * The token names are legacy: the mark was repalettised from pink to copper and
+	 * the design system kept the old names. Read them as
+	 * espresso / umber / tan / rust / amber.
+	 */
+	--bloom-pink: #5c2a1e;
+	--bloom-rose: #7a3524;
+	--bloom-cream: #d9a06a;
+	--bloom-peach: #c07a42;
+	--bloom-amber: #a8462a;
+	--bloom-wash: linear-gradient(
+		180deg,
+		var(--bloom-pink),
+		var(--bloom-cream) 48%,
+		var(--bloom-peach) 72%,
+		var(--bloom-pink)
+	);
+
+	/* Site accents, sampled directly from the work photography */
+	--clay: #c46a38;
+	--ochre: #e0a356;
+	--terracotta: #b0543a;
+	--ember: #f8a01d;
+	--dusk: #9a5f6b;
+	--water: #6e7e88;
+	--moss: #8a8b73;
+	--night: #2b1a16;
+
+	/* Semantic aliases — use these in components, not the raw ramps above */
+	--text-primary: var(--ink-900);
+	--text-secondary: var(--ink-700);
+	--text-muted: var(--ink-500);
+	--text-inverse: var(--paper-warm);
+	--surface-page: var(--paper);
+	--surface-raised: var(--paper-warm);
+	--surface-sunken: var(--paper-sand);
+	--surface-inverse: var(--night);
+	--border-hairline: var(--ink-100);
+	--border-strong: var(--ink-900);
+	--accent: var(--bloom-pink);
+	--accent-soft: var(--bloom-cream);
+	--accent-deep: var(--bloom-amber);
+	--accent-earth: var(--clay);
+	--focus-ring: var(--bloom-pink);
+	--overlay-scrim: color-mix(in oklab, var(--night) 72%, transparent);
+}
+
+:root {
+	/* Scale — editorial, generous. rem-based, 16px root. */
+	--text-hero: clamp(3.5rem, 7vw, 7.5rem);
+	--text-display: clamp(2.5rem, 4.5vw, 4rem);
+	--text-title: 2rem;
+	--text-heading: 1.5rem;
+	--text-subhead: 1.125rem;
+	--text-body: 1rem;
+	--text-caption: 0.8125rem;
+	--text-micro: 0.6875rem;
+
+	--lh-tight: 0.94;
+	--lh-snug: 1.15;
+	--lh-body: 1.55;
+	--lh-loose: 1.75;
+
+	/* Tracking — the brand's signature is wide letterspacing on uppercase serif */
+	--track-hero: -0.01em;
+	--track-nav: 0.09em;
+	--track-label: 0.16em;
+	--track-body: 0;
+
+	--weight-regular: 400;
+	--weight-medium: 500;
+}
+
+:root {
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 24px;
+	--space-6: 32px;
+	--space-7: 48px;
+	--space-8: 64px;
+	--space-9: 96px;
+	--space-10: 144px;
+	--space-11: 200px;
+
+	/* Page frame — the reference keeps a wide, quiet margin and no max-width container */
+	--page-margin: clamp(24px, 4vw, 56px);
+	/* gap between work images in the horizontal strip */
+	--gutter-strip: clamp(20px, 3.4vw, 60px);
+	--strip-image-w: clamp(150px, 15vw, 240px);
+	/* 330 / 444, taken from the reference crops */
+	--strip-image-ratio: 0.744;
+}
+
+:root {
+	/* Motion should behave like fabric and air: slow starts, long settles, no bounce. */
+	--ease-drift: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-sway: cubic-bezier(0.65, 0.05, 0.36, 1);
+	--ease-settle: cubic-bezier(0.16, 0.84, 0.28, 1);
+	--dur-1: 180ms;
+	--dur-2: 420ms;
+	--dur-3: 700ms;
+	--dur-4: 1200ms;
+	--dur-5: 2400ms;
+	--stagger: 70ms;
+	--hover-lift: -6px;
+	--hover-scale: 1.03;
+}
+
+:root {
+	/* Corners are square. The only radius in the system is the pill on small controls. */
+	--radius-none: 0px;
+	--radius-pill: 999px;
+	--border-hair: 1px solid var(--border-hairline);
+	--border-ink: 1px solid var(--border-strong);
+
+	/* Shadow is used sparingly — only lifted imagery, never cards or buttons. */
+	--shadow-none: none;
+	--shadow-lift: 0 18px 40px -24px color-mix(in oklab, var(--night) 45%, transparent);
+	--shadow-float: 0 32px 70px -32px color-mix(in oklab, var(--night) 50%, transparent);
+
+	/* Protection: bottom gradient over photography, never a solid capsule. */
+	--scrim-bottom: linear-gradient(
+		to top,
+		color-mix(in oklab, var(--night) 62%, transparent),
+		transparent 62%
+	);
+	--blur-veil: saturate(1.05) blur(14px);
+	--grain-opacity: 0.05;
+}

@@ -1,0 +1,300 @@
+---
+interface Props {
+	/** Lets imagery run under the header. */
+	overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+
+const links = [
+	{ href: '/about/', label: 'About the artist' },
+	{ href: '/projects/', label: 'Projects' },
+	{ href: '/contact/', label: 'Contact' },
+];
+---
+
+<header class:list={['site-header', { overlay }]}>
+	<!-- The logo is the way home from anywhere. It is the only animated brand
+	     element in the system — nothing else distorts. -->
+	<a class="wordmark" href="/" aria-label="Jess Elliot — home">
+		<svg width="0" height="0" class="warp-defs" aria-hidden="true">
+			<defs>
+				<filter id="logo-warp" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+					<feTurbulence
+						data-turb
+						type="fractalNoise"
+						baseFrequency="0.009 0.015"
+						numOctaves="2"
+						seed="9"
+						result="noise"
+					></feTurbulence>
+					<feDisplacementMap
+						data-disp
+						in="SourceGraphic"
+						in2="noise"
+						scale="0"
+						xChannelSelector="R"
+						yChannelSelector="G"></feDisplacementMap>
+				</filter>
+			</defs>
+		</svg>
+		<img data-logo src="/logo.png" alt="Jess Elliot" width="410" height="420" />
+	</a>
+
+	<nav class="nav-desktop" aria-label="Primary">
+		{
+			links.map((link) => (
+				<a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
+					{link.label}
+				</a>
+			))
+		}
+	</nav>
+
+	<button class="nav-toggle" aria-expanded="false" aria-controls="nav-mobile">
+		<span class="visually-hidden">Menu</span>
+		<span class="bars" aria-hidden="true"></span>
+	</button>
+</header>
+
+<div class="nav-mobile" id="nav-mobile" hidden>
+	<nav aria-label="Primary, mobile">
+		{links.map((link) => <a href={link.href}>{link.label}</a>)}
+	</nav>
+</div>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-6);
+		padding: var(--space-4) var(--page-margin);
+		background: var(--surface-page);
+	}
+
+	/*
+	 * Where imagery runs under the header it is fixed, not sticky, so it takes
+	 * no space in the flow — the design system's landing has the header sitting
+	 * still while the work moves sideways beneath it. Gradient rather than a
+	 * bar so nothing hard-edged cuts across the photography.
+	 */
+	.site-header.overlay {
+		position: fixed;
+		left: 0;
+		right: 0;
+		background: linear-gradient(
+			to bottom,
+			var(--surface-page) 0%,
+			var(--surface-page) 55%,
+			transparent 100%
+		);
+		padding-bottom: var(--space-7);
+	}
+
+	.wordmark {
+		flex-shrink: 0;
+		line-height: 0;
+		text-decoration: none;
+	}
+
+	.warp-defs {
+		position: absolute;
+	}
+
+	/* The artwork is 2362×2421 — very nearly square. Height-led sizing keeps it
+	   honest; the Logo component's own 1.25 default would letterbox it. */
+	.wordmark img {
+		height: clamp(64px, 7vw, 104px);
+		width: auto;
+	}
+
+	.nav-desktop {
+		display: flex;
+		align-items: center;
+		gap: clamp(var(--space-5), 2.5vw, var(--space-7));
+	}
+
+	.nav-desktop > a {
+		font-size: var(--text-caption);
+		letter-spacing: var(--track-nav);
+		text-transform: uppercase;
+		text-decoration: none;
+		color: var(--text-secondary);
+		padding-block: var(--space-2);
+		border-bottom: 1px solid transparent;
+		transition: color var(--dur-1) var(--ease-drift);
+		white-space: nowrap;
+	}
+
+	.nav-desktop > a:hover {
+		color: var(--text-primary);
+	}
+
+	.nav-desktop [aria-current='page'] {
+		color: var(--text-primary);
+		border-bottom-color: var(--border-strong);
+	}
+
+	/* ── Mobile ─────────────────────────────────────────────────────── */
+
+	.nav-toggle {
+		display: none;
+		width: 40px;
+		height: 40px;
+		margin-right: -8px;
+		position: relative;
+	}
+
+	.bars,
+	.bars::before,
+	.bars::after {
+		position: absolute;
+		left: 9px;
+		width: 22px;
+		height: 1px;
+		background: var(--text-primary);
+		transition: transform var(--dur-2) var(--ease-drift);
+	}
+
+	.bars {
+		top: 50%;
+	}
+	.bars::before,
+	.bars::after {
+		content: '';
+		left: 0;
+	}
+	.bars::before {
+		top: -6px;
+	}
+	.bars::after {
+		top: 6px;
+	}
+
+	.nav-toggle[aria-expanded='true'] .bars {
+		background: transparent;
+	}
+	.nav-toggle[aria-expanded='true'] .bars::before {
+		transform: translateY(6px) rotate(45deg);
+	}
+	.nav-toggle[aria-expanded='true'] .bars::after {
+		transform: translateY(-6px) rotate(-45deg);
+	}
+
+	.nav-mobile {
+		position: fixed;
+		inset: 0;
+		z-index: 45;
+		background: var(--surface-page);
+		padding: calc(var(--space-11) - var(--space-4)) var(--page-margin) var(--space-8);
+		overflow-y: auto;
+	}
+
+	.nav-mobile nav {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.nav-mobile a {
+		font-family: var(--font-display);
+		font-size: var(--text-title);
+		text-decoration: none;
+	}
+
+	@media (max-width: 800px) {
+		.nav-desktop {
+			display: none;
+		}
+		.nav-toggle {
+			display: block;
+		}
+	}
+</style>
+
+<script>
+	/*
+		The logo warp, ported from the design system's Logo component: pointer
+		proximity swells an SVG turbulence displacement and it settles back over
+		about a second.
+
+		It is a permanent requestAnimationFrame loop, so it only starts for
+		pointer devices whose owner has not asked for less motion. Everyone else
+		gets the plain mark, which is the same artwork.
+	*/
+	const wantsMotion = window.matchMedia('(prefers-reduced-motion: no-preference)');
+	const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+	const logo = document.querySelector<HTMLImageElement>('[data-logo]');
+	const turb = document.querySelector<SVGElement>('[data-turb]');
+	const disp = document.querySelector<SVGElement>('[data-disp]');
+
+	if (logo && turb && disp && wantsMotion.matches && finePointer.matches) {
+		// 34 is the house setting. The component's own default of 46 over-drives
+		// it — past roughly 60 the letterforms break apart.
+		const MAX_WARP = 34;
+		const target = { d: 0 };
+		const state = { scale: 0, t: Math.random() * 100 };
+
+		logo.style.filter = 'url(#logo-warp)';
+
+		const tick = () => {
+			state.scale += (target.d * MAX_WARP - state.scale) * 0.05;
+			state.t += 0.004 + target.d * 0.01;
+			disp.setAttribute('scale', state.scale.toFixed(2));
+			const fx = 0.009 + Math.sin(state.t) * (0.004 + target.d * 0.006);
+			const fy = 0.015 + Math.cos(state.t * 0.8) * (0.005 + target.d * 0.007);
+			turb.setAttribute('baseFrequency', `${fx.toFixed(4)} ${fy.toFixed(4)}`);
+			requestAnimationFrame(tick);
+		};
+		requestAnimationFrame(tick);
+
+		window.addEventListener(
+			'pointermove',
+			(event) => {
+				const rect = logo.getBoundingClientRect();
+				const dx = (event.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+				const dy = (event.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+				// Nearest the centre of the mark warps hardest; it never fully stills
+				// while the pointer is on the page, which is the intended liquidity.
+				target.d = Math.max(0, 1 - Math.min(1, Math.hypot(dx, dy)) * 0.4);
+			},
+			{ passive: true },
+		);
+
+		window.addEventListener('pointerleave', () => (target.d = 0), { passive: true });
+	}
+
+	// ── Mobile menu ──────────────────────────────────────────────────
+	const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+	const panel = document.querySelector<HTMLElement>('.nav-mobile');
+
+	function closeMobile() {
+		if (!toggle || !panel) return;
+		toggle.setAttribute('aria-expanded', 'false');
+		panel.hidden = true;
+		document.body.style.overflow = '';
+	}
+
+	toggle?.addEventListener('click', () => {
+		if (!panel) return;
+		const open = toggle.getAttribute('aria-expanded') === 'true';
+		if (open) {
+			closeMobile();
+		} else {
+			toggle.setAttribute('aria-expanded', 'true');
+			panel.hidden = false;
+			document.body.style.overflow = 'hidden';
+		}
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') closeMobile();
+	});
+</script>

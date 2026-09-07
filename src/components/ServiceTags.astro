@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import type { ServiceSlug } from '../content.config';
+
+/*
+	Tags are labels, not navigation. There are no /services/ routes any more —
+	the collection exists only to validate the slugs and to hold their display
+	titles, so nothing here links anywhere.
+*/
+
+interface Props {
+	tags: ServiceSlug[];
+}
+const { tags } = Astro.props;
+
+const all = await getCollection('services');
+const titleFor = (slug: string) => all.find((s) => s.id === slug)?.data.title ?? slug;
+---
+
+<ul class="tag-row" aria-label="Tags">
+	{tags.map((slug) => <li><span class="tag">{titleFor(slug)}</span></li>)}
+</ul>
+
+<style>
+	.tag-row {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+</style>

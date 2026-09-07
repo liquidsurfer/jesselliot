@@ -1,0 +1,372 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import ServiceTags from '../../components/ServiceTags.astro';
+import { galleryFor, coverFor } from '../../lib/gallery';
+
+export const getStaticPaths = (async () => {
+	// Drafts still build so Jess can preview them on a deploy preview URL; they
+	// are simply absent from every index and from the sitemap.
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: { project },
+	}));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const isPending = (value: string) => value.trim() === '[TO WRITE]';
+const { Content } = await render(project);
+
+const gallery = galleryFor(project);
+const cover = coverFor(project);
+const hero = cover;
+const rest = gallery.filter((image) => image.file !== hero?.file);
+
+const published = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+	(a, b) => a.data.order - b.data.order,
+);
+const index = published.findIndex((p) => p.id === project.id);
+const next = index >= 0 ? published[(index + 1) % published.length] : published[0];
+
+const years =
+	project.data.yearEnd && project.data.yearEnd !== project.data.yearStart
+		? `${project.data.yearStart}–${project.data.yearEnd}`
+		: `${project.data.yearStart}`;
+
+const parent = project.data.parent
+	? (await getCollection('projects')).find((p) => p.id === project.data.parent!.id)
+	: undefined;
+---
+
+<Base
+	title={project.data.title}
+	description={project.data.summary}
+	ogImage={cover?.src.src}
+>
+	{
+		project.data.draft && (
+			<p class="draft-flag page">
+				Draft — not linked from anywhere on the site yet.
+				{gallery.length === 0 && ' Awaiting photography.'}
+			</p>
+		)
+	}
+
+	<article>
+		{
+			hero && (
+				<figure class:list={['hero', { scrimmed: hero.credit }]}>
+					<Image
+						src={hero.src}
+						alt={hero.alt}
+						widths={[700, 1200, 1800, 2400]}
+						sizes="100vw"
+						loading="eager"
+						fetchpriority="high"
+					/>
+					{hero.credit && <figcaption class="credit">Photograph by {hero.credit}</figcaption>}
+				</figure>
+			)
+		}
+
+		<header class="page project-header">
+			{
+				parent && (
+					<p class="parent-link">
+						Part of <a href={`/projects/${parent.id}/`}>{parent.data.title}</a>
+					</p>
+				)
+			}
+			<h1>{project.data.title}</h1>
+			<p class:list={['summary', { pending: isPending(project.data.summary) }]}>{project.data.summary}</p>
+			<dl class="project-facts">
+				{
+					project.data.client && (
+						<div>
+							<dt>For</dt>
+							<dd>{project.data.client}</dd>
+						</div>
+					)
+				}
+				<div>
+					<dt>Where</dt>
+					<dd>{project.data.location}</dd>
+				</div>
+				<div>
+					<dt>When</dt>
+					<dd>{years}</dd>
+				</div>
+			</dl>
+			<ServiceTags tags={project.data.tags} />
+		</header>
+
+		<div class="page project-writeup">
+			<blockquote class:list={['pull', { pending: isPending(project.data.pull) }]}>{project.data.pull}</blockquote>
+			<div class="prose">
+				<Content />
+			</div>
+		</div>
+
+		{
+			rest.length > 0 && (
+				<section class="gallery" aria-label="Project gallery">
+					{rest.map((image, i) => (
+						<figure
+							class:list={['gallery-item', image.orientation, { wide: i % 5 === 0 }]}
+						>
+							<Image
+								src={image.src}
+								alt={image.alt}
+								widths={[600, 1000, 1600]}
+								sizes="(max-width: 800px) 92vw, 62vw"
+								loading="lazy"
+							/>
+							{(image.caption || image.credit) && (
+								<figcaption>
+									{image.caption && <span class="caption-text">{image.caption}</span>}
+									{image.credit && <span class="credit">Photograph by {image.credit}</span>}
+								</figcaption>
+							)}
+						</figure>
+					))}
+				</section>
+			)
+		}
+
+		{
+			project.data.credits.length > 0 && (
+				<section class="page credits">
+					<h2 class="label">Made with</h2>
+					<ul>
+						{project.data.credits.map((credit) => (
+							<li>{credit}</li>
+						))}
+					</ul>
+				</section>
+			)
+		}
+	</article>
+
+	<nav class="page project-next" aria-label="Next project">
+		<span class="eyebrow">Next</span>
+		<a class="cta" href={`/projects/${next.id}/`}>{next.data.title}</a>
+	</nav>
+</Base>
+
+<style>
+	.draft-flag {
+		background: var(--surface-sunken);
+		padding: var(--space-3) var(--page-margin);
+		font-size: var(--text-caption);
+		color: var(--text-secondary);
+	}
+
+	.project-header {
+		padding-block: var(--space-8) var(--space-7);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-5);
+	}
+
+	.parent-link {
+		font-size: var(--text-caption);
+		color: var(--text-muted);
+	}
+
+	.project-header h1 {
+		font-size: var(--text-hero);
+		line-height: var(--lh-tight);
+		letter-spacing: var(--track-hero);
+		max-width: 14ch;
+	}
+
+	.project-facts {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
+		gap: var(--space-5) var(--space-8);
+		margin: 0;
+	}
+
+	.project-facts dt {
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-label);
+		text-transform: uppercase;
+		color: var(--text-muted);
+		margin-bottom: var(--space-1);
+	}
+
+	.project-facts dd {
+		margin: 0;
+		font-size: var(--text-body);
+	}
+
+	/*
+	 * FullBleed, per the design system: edge to edge, 82vh on a project page,
+	 * with --scrim-bottom protecting anything that sits over the lower edge.
+	 * Never a solid capsule behind the text.
+	 */
+	.hero {
+		position: relative;
+		margin: 0 0 var(--space-8);
+	}
+
+	.hero :global(img) {
+		width: 100%;
+		height: 82vh;
+		object-fit: cover;
+	}
+
+	.hero.scrimmed::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--scrim-bottom);
+		pointer-events: none;
+	}
+
+	.credit {
+		display: block;
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-nav);
+		text-transform: uppercase;
+		color: var(--text-muted);
+	}
+
+	.hero .credit {
+		position: absolute;
+		z-index: 1;
+		left: var(--page-margin);
+		bottom: var(--space-5);
+		color: var(--text-inverse);
+	}
+
+	.summary {
+		font-family: var(--font-display);
+		font-size: var(--text-title);
+		line-height: var(--lh-snug);
+		color: var(--text-secondary);
+		max-width: 34ch;
+		margin: 0;
+	}
+
+	.project-writeup {
+		display: grid;
+		grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+		gap: var(--gutter-strip);
+		padding-block: var(--space-7) var(--space-9);
+		align-items: start;
+	}
+
+	.pull {
+		margin: 0;
+		font-family: var(--font-display), Didot, serif;
+		font-size: var(--text-heading);
+		line-height: var(--lh-body);
+		color: var(--text-primary);
+		border-left: 1px solid var(--accent);
+		padding-left: var(--space-5);
+		position: sticky;
+		top: var(--space-10);
+	}
+
+	.prose {
+		max-width: 66ch;
+	}
+
+	.prose :global(p) {
+		margin-bottom: var(--space-5);
+	}
+
+	.prose :global(blockquote) {
+		margin: var(--space-7) 0;
+		padding-left: var(--space-6);
+		border-left: var(--border-hair);
+		color: var(--text-secondary);
+		font-style: italic;
+	}
+
+	.prose :global(blockquote p) {
+		margin-bottom: var(--space-4);
+	}
+
+	.gallery {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-9);
+		padding: 0 var(--page-margin) var(--space-9);
+	}
+
+	.gallery-item {
+		margin: 0;
+		width: min(100%, 62rem);
+	}
+
+	.gallery-item.portrait {
+		width: min(100%, 42rem);
+	}
+
+	.gallery-item.wide {
+		width: 100%;
+	}
+
+	.gallery-item :global(img) {
+		width: 100%;
+		height: auto;
+	}
+
+	.gallery-item figcaption {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		padding-top: var(--space-3);
+	}
+
+	.caption-text {
+		font-size: var(--text-caption);
+		color: var(--text-secondary);
+	}
+
+	.credits {
+		padding-block: var(--space-7);
+		border-top: var(--border-hair);
+	}
+
+	.credits ul {
+		list-style: none;
+		padding: 0;
+		margin: var(--space-4) 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		color: var(--text-secondary);
+		max-width: 62ch;
+	}
+
+	.project-next {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-4);
+		padding-block: var(--space-8);
+		border-top: var(--border-hair);
+	}
+
+	@media (max-width: 900px) {
+		.project-writeup {
+			grid-template-columns: 1fr;
+			gap: var(--space-6);
+		}
+		.pull {
+			position: static;
+			font-size: var(--text-subhead);
+		}
+		.gallery {
+			gap: var(--space-7);
+		}
+	}
+</style>

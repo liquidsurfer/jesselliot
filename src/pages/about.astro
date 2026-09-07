@@ -1,0 +1,131 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { coverFor } from '../lib/gallery';
+
+/*
+	The body copy here is Jess's to write. The previous version was an AI draft
+	in her voice and has been removed — see the no-AI-text rule in AGENTS.md.
+
+	The two lists below are derived from the project data rather than written,
+	so they stay true on their own as projects are added.
+*/
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const portrait = coverFor(projects[0]);
+
+const worksAcross = services.map((service) => service.data.title);
+const builtWith = [...new Set(projects.map((p) => p.data.client).filter(Boolean))];
+---
+
+<Base title="About the artist" description="Jess Elliot — creative direction, stage design and scenic environments.">
+	<article class="about">
+		<header class="page about-header">
+			<p class="eyebrow">About the artist</p>
+			<h1 class="pending">[TO WRITE]</h1>
+		</header>
+
+		{
+			portrait && (
+				<figure class="about-image">
+					<Image src={portrait.src} alt="" widths={[800, 1400, 2000]} sizes="100vw" loading="eager" />
+					{portrait.credit && <figcaption>Photograph by {portrait.credit}</figcaption>}
+				</figure>
+			)
+		}
+
+		<div class="page about-body">
+			<div class="prose">
+				<p class="pending">[TO WRITE]</p>
+			</div>
+
+			<aside class="about-aside">
+				<div class="aside-block">
+					<h2 class="label">Works across</h2>
+					<p>{worksAcross.join(' · ')}</p>
+				</div>
+				<div class="aside-block">
+					<h2 class="label">Has built with</h2>
+					<p>{builtWith.join(' · ')}</p>
+				</div>
+			</aside>
+		</div>
+	</article>
+</Base>
+
+<style>
+	.about-header {
+		padding-block: var(--space-8) var(--space-7);
+	}
+
+	.about-header h1 {
+		font-size: var(--text-display);
+		line-height: var(--lh-snug);
+		max-width: 24ch;
+		margin-top: var(--space-4);
+	}
+
+	.about-image :global(img) {
+		width: 100%;
+		height: auto;
+		max-height: 72vh;
+		object-fit: cover;
+	}
+
+	.about-image figcaption {
+		padding: var(--space-3) var(--page-margin) 0;
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-nav);
+		text-transform: uppercase;
+		color: var(--text-muted);
+	}
+
+	/* About.jsx: minmax(0,0.9fr) minmax(0,1.1fr) with --space-9 between. */
+	.about-body {
+		display: grid;
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+		gap: var(--space-9);
+		padding-block: var(--space-8) var(--space-10);
+		align-items: start;
+	}
+
+	.prose {
+		max-width: 58ch;
+	}
+
+	.about-aside {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+	}
+
+	.aside-block p {
+		margin-top: var(--space-2);
+		line-height: var(--lh-body);
+		color: var(--text-secondary);
+	}
+
+	@media (max-width: 800px) {
+		.about-body {
+			grid-template-columns: 1fr;
+			gap: var(--space-7);
+		}
+	}
+
+	/*
+	 * Astro rewrites `.about-header h1` to `.about-header[cid] h1[cid]`, which
+	 * outranks a bare `h1.pending`. Match the same depth so a placeholder is
+	 * never dressed up as the heading it stands in for.
+	 */
+	.about-header h1.pending,
+	.prose p.pending {
+		font-family: var(--font-ui);
+		font-size: var(--text-body);
+		letter-spacing: var(--track-label);
+		color: var(--text-muted);
+		max-width: none;
+	}
+</style>
