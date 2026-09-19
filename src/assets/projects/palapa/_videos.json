@@ -1,0 +1,20 @@
+[
+	{
+		"id": "palapa-polaroid-01",
+		"source": "POLAROID1 .mov",
+		"mp4": "/polaroids/palapa-polaroid-01.mp4",
+		"poster": "/polaroids/palapa-polaroid-01.jpg",
+		"width": 398,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "palapa-polaroid-02",
+		"source": "POLAROID2.mov",
+		"mp4": "/polaroids/palapa-polaroid-02.mp4",
+		"poster": "/polaroids/palapa-polaroid-02.jpg",
+		"width": 404,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

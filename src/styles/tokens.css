@@ -13,7 +13,7 @@
 
 :root {
 	--font-display: 'Bodoni Moda Variable', Didot, 'Times New Roman', serif;
-	--font-ui: 'Instrument Sans Variable', 'Helvetica Neue', Helvetica, system-ui, sans-serif;
+	--font-ui: 'Jost Variable', 'Futura', 'Century Gothic', 'Helvetica Neue', system-ui, sans-serif;
 
 	/* Ink — sampled from the wordmark and captions */
 	--ink-900: #12100e;
@@ -119,8 +119,46 @@
 	/* gap between work images in the horizontal strip */
 	--gutter-strip: clamp(20px, 3.4vw, 60px);
 	--strip-image-w: clamp(150px, 15vw, 240px);
-	/* 330 / 444, taken from the reference crops */
+	/* 330 / 444, taken from the reference crops. Confirmed against Jess's own
+	   homepage mockup, where every tile measures 0.748 — her strip is one box
+	   repeated, not a row of natural proportions. */
 	--strip-image-ratio: 0.744;
+
+	/*
+	 * The hover, measured off the reference strip Jess pointed at for sizing.
+	 * Her hovered tile goes 190x254 to 280x348 — 1.48x wide but only 1.37x
+	 * tall, so the *shape* changes: 0.744 opens out to 0.805.
+	 *
+	 * That difference matters. A uniform scale magnifies the same crop; this
+	 * widens the frame, so `object-fit: cover` reveals more of the photograph
+	 * sideways as it grows. It is the difference between zooming and opening.
+	 */
+	--strip-hover-scale: 1.48;
+	--strip-hover-ratio: 0.805;
+
+	/*
+	 * Page rhythm. Before these existed every page picked its own vertical
+	 * padding — tops ran space-7/8/10 and bottoms space-8/9/10 — which is the
+	 * difference between a layout that feels composed and one that feels
+	 * defaulted. One source, used on every route.
+	 */
+	--page-head: var(--space-8);
+	--page-foot: var(--space-9);
+	--section-gap: var(--space-9);
+
+	/*
+	 * How far a column of text drops below the top of the image it sits
+	 * beside. Measured off Jess's About layout, where the portrait's top edge
+	 * is the highest thing on the page and the write-up hangs beneath it by
+	 * about 7% of the page width. Ours had the text starting 2.6% *above* the
+	 * portrait, which is what made the pairing read as accidental.
+	 *
+	 * In vw, not %: a percentage padding resolves against the column it sits
+	 * in, so 7% of a 45%-wide column came out as 3.1% of the page — under half
+	 * the intended drop. Her offset is a fraction of the *page*, so the token
+	 * has to be too.
+	 */
+	--text-hang: 7vw;
 }
 
 :root {

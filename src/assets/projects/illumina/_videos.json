@@ -1,0 +1,11 @@
+[
+	{
+		"id": "illumina-polaroid-01",
+		"source": "POLAROID.mov",
+		"mp4": "/polaroids/illumina-polaroid-01.mp4",
+		"poster": "/polaroids/illumina-polaroid-01.jpg",
+		"width": 404,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

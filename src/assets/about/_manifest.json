@@ -1,0 +1,90 @@
+[
+	{
+		"file": "about-01.jpg",
+		"source": "ABOUT ME MAIN.jpg",
+		"width": 1297,
+		"height": 1600,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "protect",
+		"luminance": 0.547,
+		"topLuminance": 0.663
+	},
+	{
+		"file": "about-02.jpg",
+		"source": "FUSION FACADES.JPG",
+		"width": 2560,
+		"height": 1703,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.276,
+		"topLuminance": 0.258
+	},
+	{
+		"file": "about-03.jpg",
+		"source": "GARBICZ SCENICS.jpg",
+		"width": 1697,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.391,
+		"topLuminance": 0.232
+	},
+	{
+		"file": "about-04.jpg",
+		"source": "HANDZ.jpg",
+		"width": 1366,
+		"height": 2048,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.507,
+		"topLuminance": 0.609
+	},
+	{
+		"file": "about-05.jpg",
+		"source": "JESS ELLIOT ABOUT LAYOUT-01.png",
+		"width": 1767,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.691,
+		"topLuminance": 0.842
+	},
+	{
+		"file": "about-06.jpg",
+		"source": "JESS ELLIOT ABOUT LAYOUT-02.png",
+		"width": 1785,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.692,
+		"topLuminance": 0.844
+	},
+	{
+		"file": "about-07.jpg",
+		"source": "KUNDA WORKING.JPG",
+		"width": 1920,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.52,
+		"topLuminance": 0.551
+	},
+	{
+		"file": "about-08.jpg",
+		"source": "TEXTURE PENEL.JPG",
+		"width": 1695,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.588,
+		"topLuminance": 0.504
+	}
+]

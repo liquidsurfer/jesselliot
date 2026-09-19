@@ -1,0 +1,20 @@
+[
+	{
+		"id": "house-of-david-polaroid-01",
+		"source": "POLAROID VID 2.mov",
+		"mp4": "/polaroids/house-of-david-polaroid-01.mp4",
+		"poster": "/polaroids/house-of-david-polaroid-01.jpg",
+		"width": 400,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "house-of-david-polaroid-02",
+		"source": "POLAROID VID.mov",
+		"mp4": "/polaroids/house-of-david-polaroid-02.mp4",
+		"poster": "/polaroids/house-of-david-polaroid-02.jpg",
+		"width": 404,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

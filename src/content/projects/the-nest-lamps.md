@@ -20,7 +20,6 @@ pull: >-
 parent: the-nest
 credits:
   - In collaboration with Georgia Monsson, Suli and Anaise
-# No imagery yet — homepage renders a placeholder tile.
 order: 45
 ---
 

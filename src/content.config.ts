@@ -9,11 +9,13 @@ import { glob } from 'astro/loaders';
  */
 export const SERVICES = [
 	'creative-direction',
+	'project-management',
 	'stage-design',
 	'immersive-installation',
-	'scenic-painting',
-	'decor-and-props',
+	'decor',
 	'fabrication',
+	'scenic-painting',
+	'props-and-set-dec',
 ] as const;
 
 export type ServiceSlug = (typeof SERVICES)[number];
@@ -49,6 +51,22 @@ const projects = defineCollection({
 		summary: z.string(),
 		pull: z.string(),
 		parent: reference('projects').optional(),
+
+		/**
+		 * Projects shot in named parts that flow down one page, each with its
+		 * own write-up and its own photographs — Nadia's Womanhood, Still Life
+		 * and Orion. `slug` matches the `section` build_assets.py writes into
+		 * _manifest.json, which is how the images find their part.
+		 */
+		sections: z
+			.array(
+				z.object({
+					slug: z.string(),
+					title: z.string(),
+					body: z.string(),
+				}),
+			)
+			.default([]),
 
 		/**
 		 * The single full-screen hero on the project page. A bare filename from

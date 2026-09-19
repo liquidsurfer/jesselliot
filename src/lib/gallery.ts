@@ -14,7 +14,17 @@ import type { CollectionEntry } from 'astro:content';
  * Two frontmatter fields do select images by name: `cover` (the project page's
  * full-screen hero) and `landing` (the pool the homepage box rotates through).
  * Both are checked against the manifest at build time — see assertKnownFiles.
+ *
+ * Neither is usually needed. Jess labels the masters by the job they do —
+ * "HERO1.jpg", "TOP LANDSCAPE.jpg", "ENIGMA SIGNS SCROLL.jpg" — and
+ * build_assets.py carries that through to the manifest as `role`. So the
+ * default cover is the image she marked TOP LANDSCAPE and the default landing
+ * pool is the ones she marked HERO. Frontmatter is the override for when her
+ * labelling is missing or we want something else, not the normal path.
  */
+
+/** The job Jess's filename assigns an image. See ROLE_PATTERNS in the pipeline. */
+export type ImageRole = 'hero' | 'top-landscape' | 'signs';
 
 type ManifestEntry = {
 	file: string;
@@ -23,6 +33,15 @@ type ManifestEntry = {
 	height: number;
 	orientation: 'landscape' | 'portrait';
 	credit: string | null;
+	/** "protect" means the image has a uniform border and must not be cropped. */
+	crop?: 'safe' | 'protect';
+	/** Mean brightness 0-1, used to compose gallery rows. */
+	luminance?: number;
+	/** Mean brightness of the top strip — decides light or dark nav over a hero. */
+	topLuminance?: number;
+	role?: ImageRole;
+	/** Set only on projects split into sections, e.g. Nadia's three shoots. */
+	section?: string;
 };
 
 export type GalleryImage = {
@@ -33,6 +52,11 @@ export type GalleryImage = {
 	credit?: string;
 	orientation: 'landscape' | 'portrait';
 	aspect: number;
+	crop: 'safe' | 'protect';
+	luminance: number;
+	topLuminance: number;
+	role?: ImageRole;
+	section?: string;
 };
 
 // Eager so the build resolves and hashes every asset; these are ImageMetadata
@@ -104,6 +128,11 @@ export function galleryFor(project: CollectionEntry<'projects'>): GalleryImage[]
 				credit: override.credit ?? entry.credit ?? project.data.defaultCredit ?? undefined,
 				orientation: entry.orientation,
 				aspect: entry.width / entry.height,
+				crop: entry.crop ?? 'safe',
+				luminance: entry.luminance ?? 0.5,
+				topLuminance: entry.topLuminance ?? 0.5,
+				role: entry.role,
+				section: entry.section,
 				// Un-pinned images sort after pinned ones but otherwise hold manifest
 				// order. A large finite number, not Infinity: Infinity - Infinity is
 				// NaN, which makes the comparator incoherent.
@@ -115,12 +144,44 @@ export function galleryFor(project: CollectionEntry<'projects'>): GalleryImage[]
 		.map(({ _order, ...image }) => image);
 }
 
-/** The single image that represents the project — the full-screen hero. */
+/**
+ * The single image that represents the project — the landscape shot that runs
+ * across the top of the project page and beside its row on the projects index.
+ *
+ * Frontmatter `cover` wins; otherwise the one Jess labelled TOP LANDSCAPE;
+ * otherwise the first image, so a project always has something.
+ */
 export function coverFor(project: CollectionEntry<'projects'>): GalleryImage | undefined {
 	const gallery = galleryFor(project);
 	if (!gallery.length) return undefined;
 	const named = project.data.cover && gallery.find((g) => g.file === project.data.cover);
-	return named || gallery[0];
+	const labelled = gallery.find((g) => g.role === 'top-landscape');
+	return named || labelled || gallery[0];
+}
+
+/**
+ * Images Jess grouped under a scrolling band of their own — Enigma's signs.
+ * They are kept out of the main grid so they are not shown twice.
+ */
+export function bandFor(project: CollectionEntry<'projects'>): GalleryImage[] {
+	return galleryFor(project).filter((image) => image.role === 'signs');
+}
+
+/**
+ * A sectioned project's images in section order, e.g. Nadia's Womanhood,
+ * Still Life and Orion on one page. Empty for everything else.
+ */
+export function sectionsFor(
+	project: CollectionEntry<'projects'>,
+): { section: string; images: GalleryImage[] }[] {
+	const grouped = new Map<string, GalleryImage[]>();
+	for (const image of galleryFor(project)) {
+		if (!image.section) continue;
+		const bucket = grouped.get(image.section);
+		if (bucket) bucket.push(image);
+		else grouped.set(image.section, [image]);
+	}
+	return [...grouped].map(([section, images]) => ({ section, images }));
 }
 
 /**
@@ -137,6 +198,10 @@ export function landingPool(project: CollectionEntry<'projects'>): GalleryImage[
 		.filter((image): image is GalleryImage => image !== undefined);
 
 	if (approved.length) return approved;
+
+	// Jess ships three HERO-labelled images per project for exactly this.
+	const labelled = gallery.filter((image) => image.role === 'hero');
+	if (labelled.length) return labelled;
 
 	const cover = coverFor(project);
 	return cover ? [cover] : [];

@@ -1,0 +1,20 @@
+[
+	{
+		"id": "die-suurlemoen-padstal-polaroid-01",
+		"source": "POLAROID 1.mov",
+		"mp4": "/polaroids/die-suurlemoen-padstal-polaroid-01.mp4",
+		"poster": "/polaroids/die-suurlemoen-padstal-polaroid-01.jpg",
+		"width": 402,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "die-suurlemoen-padstal-polaroid-02",
+		"source": "POLAROID 2.mov",
+		"mp4": "/polaroids/die-suurlemoen-padstal-polaroid-02.mp4",
+		"poster": "/polaroids/die-suurlemoen-padstal-polaroid-02.jpg",
+		"width": 394,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

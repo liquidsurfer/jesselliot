@@ -1,290 +1,292 @@
 [
 	{
 		"file": "senses-the-garden-01.jpg",
-		"source": "DIARYOFROSS-2.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-02.jpg",
 		"source": "DIARYOFROSS-4.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.458,
+		"topLuminance": 0.559
 	},
 	{
-		"file": "senses-the-garden-03.jpg",
+		"file": "senses-the-garden-02.jpg",
 		"source": "DIARYOFROSS-6s.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.521,
+		"topLuminance": 0.572
 	},
 	{
-		"file": "senses-the-garden-04.jpg",
-		"source": "DIARYOFROSS-8.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-05.jpg",
+		"file": "senses-the-garden-03.jpg",
 		"source": "DIARYOFROSS-12s.jpg",
 		"width": 2048,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.35,
+		"topLuminance": 0.615
 	},
 	{
-		"file": "senses-the-garden-06.jpg",
-		"source": "DIARYOFROSS-13s.jpg",
-		"width": 2048,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-07.jpg",
+		"file": "senses-the-garden-04.jpg",
 		"source": "DIARYOFROSS-18.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.329,
+		"topLuminance": 0.374
 	},
 	{
-		"file": "senses-the-garden-08.jpg",
-		"source": "DIARYOFROSS-18s.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-09.jpg",
+		"file": "senses-the-garden-05.jpg",
 		"source": "DIARYOFROSS-20s.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.465,
+		"topLuminance": 0.467
 	},
 	{
-		"file": "senses-the-garden-10.jpg",
+		"file": "senses-the-garden-06.jpg",
 		"source": "DIARYOFROSS-21s.jpg",
 		"width": 2048,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.387,
+		"topLuminance": 0.424
 	},
 	{
-		"file": "senses-the-garden-11.jpg",
+		"file": "senses-the-garden-07.jpg",
 		"source": "DIARYOFROSS-23s.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.4,
+		"topLuminance": 0.397
 	},
 	{
-		"file": "senses-the-garden-12.jpg",
+		"file": "senses-the-garden-08.jpg",
 		"source": "DIARYOFROSS-28s.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.461,
+		"topLuminance": 0.674
 	},
 	{
-		"file": "senses-the-garden-13.jpg",
-		"source": "DIARYOFROSS-36s.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-14.jpg",
-		"source": "DIARYOFROSS-37s.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-15.jpg",
+		"file": "senses-the-garden-09.jpg",
 		"source": "DIARYOFROSS-38s.jpg",
 		"width": 2048,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.606,
+		"topLuminance": 0.593
 	},
 	{
-		"file": "senses-the-garden-16.jpg",
-		"source": "DIARYOFROSS-39.jpg",
+		"file": "senses-the-garden-10.jpg",
+		"source": "DIARYOFROSS-40.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.446,
+		"topLuminance": 0.469
 	},
 	{
-		"file": "senses-the-garden-17.jpg",
-		"source": "DIARYOFROSS-40.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-18.jpg",
+		"file": "senses-the-garden-11.jpg",
 		"source": "DIARYOFROSS-41.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.501,
+		"topLuminance": 0.609
 	},
 	{
-		"file": "senses-the-garden-19.jpg",
+		"file": "senses-the-garden-12.jpg",
 		"source": "DIARYOFROSS-44s.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.445,
+		"topLuminance": 0.408
 	},
 	{
-		"file": "senses-the-garden-20.jpg",
+		"file": "senses-the-garden-13.jpg",
 		"source": "DIARYOFROSS-45.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.44,
+		"topLuminance": 0.547
 	},
 	{
-		"file": "senses-the-garden-21.jpg",
-		"source": "DIARYOFROSS-48.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-22.jpg",
+		"file": "senses-the-garden-14.jpg",
 		"source": "DIARYOFROSS-48s.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.539,
+		"topLuminance": 0.371
 	},
 	{
-		"file": "senses-the-garden-23.jpg",
-		"source": "DIARYOFROSS-49s.jpg",
-		"width": 2560,
-		"height": 2048,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-24.jpg",
+		"file": "senses-the-garden-15.jpg",
 		"source": "DIARYOFROSS-51s.jpg",
 		"width": 1862,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.521,
+		"topLuminance": 0.576
 	},
 	{
-		"file": "senses-the-garden-25.jpg",
-		"source": "DIARYOFROSS-52s.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-26.jpg",
+		"file": "senses-the-garden-16.jpg",
 		"source": "DIARYOFROSS-53.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.416,
+		"topLuminance": 0.459
 	},
 	{
-		"file": "senses-the-garden-27.jpg",
-		"source": "DIARYOFROSS-53s.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-28.jpg",
+		"file": "senses-the-garden-17.jpg",
 		"source": "DIARYOFROSS-59s.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.289,
+		"topLuminance": 0.381
 	},
 	{
-		"file": "senses-the-garden-29.jpg",
-		"source": "DIARYOFROSS-66.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-30.jpg",
+		"file": "senses-the-garden-18.jpg",
 		"source": "DIARYOFROSS-67.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.206,
+		"topLuminance": 0.128
 	},
 	{
-		"file": "senses-the-garden-31.jpg",
+		"file": "senses-the-garden-19.jpg",
 		"source": "DIARYOFROSS-77.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.105,
+		"topLuminance": 0.053
 	},
 	{
-		"file": "senses-the-garden-32.jpg",
-		"source": "DIARYOFROSS-84.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-33.jpg",
+		"file": "senses-the-garden-20.jpg",
 		"source": "DIARYOFROSS-88.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.252,
+		"topLuminance": 0.204
 	},
 	{
-		"file": "senses-the-garden-34.jpg",
+		"file": "senses-the-garden-21.jpg",
 		"source": "DIARYOFROSS-109s copy.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.5,
+		"topLuminance": 0.619
 	},
 	{
-		"file": "senses-the-garden-35.jpg",
-		"source": "DIARYOFROSS-113s.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "senses-the-garden-36.jpg",
+		"file": "senses-the-garden-22.jpg",
 		"source": "DIARYOFROSS-130s.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.423,
+		"topLuminance": 0.37
+	},
+	{
+		"file": "senses-the-garden-23.jpg",
+		"source": "HERO2.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.444,
+		"topLuminance": 0.407,
+		"role": "hero"
+	},
+	{
+		"file": "senses-the-garden-24.jpg",
+		"source": "HERO3.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.433,
+		"topLuminance": 0.416,
+		"role": "hero"
+	},
+	{
+		"file": "senses-the-garden-25.jpg",
+		"source": "HERO.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.524,
+		"topLuminance": 0.613,
+		"role": "hero"
+	},
+	{
+		"file": "senses-the-garden-26.jpg",
+		"source": "LANDSCAPE TOP.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.338,
+		"topLuminance": 0.45,
+		"role": "top-landscape"
 	}
 ]

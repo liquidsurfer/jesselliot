@@ -4,43 +4,41 @@ client: Fusion Festival
 location: Lärz, Germany
 yearStart: 2022
 yearEnd: 2023
-role: Scenic painter, then lead scenic painter
+role: Scenic Painter / Lead Scenic Painter
 tags:
-  - stage-design
   - scenic-painting
+  - stage-design
   - fabrication
 summary: >-
-  Palapa was my first experience working scenically at this scale —
-  contributing to Fusion Festival's largest stage and its sprawling,
+  Palapa was my first experience working scenically at this scale,
+  contributing to one of Fusion Festival's largest stages and its sprawling,
   dystopian cityscape.
 pull: >-
-  The experience marked an important progression in my practice: from
-  learning large-scale scenic techniques to developing the confidence to
-  translate, communicate and teach them within a collaborative build
-  environment.
+  This experience marked an important progression in my practice.
 credits:
-  - WanderZirkus Kollektiv
-  - Additional photography by Descandez
-# Curate these: cover is the full-screen hero, landing is the
-# rotation pool for the homepage box. Defaults picked by shape only.
-cover: palapa-01.jpg
-landing:
-  - palapa-03.jpg
-  - palapa-07.jpg
+  - In collaboration with Wanderzirkus Kollektiv
+  - Additional Photography by Descandez
 order: 50
 ---
 
-Palapa was my first experience working scenically at this scale — contributing
-to Fusion Festival's largest stage and its sprawling, dystopian cityscape.
+Palapa was my first experience working scenically at this scale, contributing
+to one of Fusion Festival's largest stages and its sprawling, dystopian
+cityscape.
 
 I joined the team in 2022, transforming raw plywood façades into layered,
-lived-in environments. Working closely with the construction and décor teams, we
-used scenic painting to create the illusion of an ageing city — building up
-architectural details, weathered surfaces, moss, mould, signage and fictional
-storefronts across the stage.
+"lived-in" environments. Working closely with the construction and décor teams,
+we used scenic painting techniques to create the illusion of an ageing,
+abandoned cityscape, building up architectural details, weathered surfaces,
+moss, mould, Palapa rust, signage and fictional storefronts across the stage.
 
-Returning the following year, I stepped into the role of **lead scenic painter**,
-working under the guidance of the art direction team to lead and teach a team of
-painters. The experience marked an important progression in my practice: from
-learning large-scale scenic techniques to developing the confidence to
-translate, communicate and teach them within a collaborative build environment.
+Returning the following year, I had the opportunity to co lead the Scenic
+painting team, working closely with the art directors to re conceptualise, re
+design and reconfigure existing façades from previous years across the left and
+right bridges, puzzle-piecing old structures into a new cityscape. Our scenic
+work helped bring these different fragments together, creating a cohesive
+visual language while preserving the layered history of the stage and its
+evolvement each year.
+
+This experience marked an important progression in my practice: from learning
+large-scale scenic techniques to developing the confidence to translate,
+communicate and teach them within a collaborative build environment.

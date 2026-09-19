@@ -1,98 +1,281 @@
 [
 	{
 		"file": "sandlantis-01.jpg",
-		"source": "sandlantis.png",
-		"width": 996,
-		"height": 1358,
-		"orientation": "portrait",
-		"credit": null
+		"source": "DSC00253.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.15,
+		"topLuminance": 0.167
 	},
 	{
 		"file": "sandlantis-02.jpg",
-		"source": "Screenshot 2026-08-24 at 14.43.12.png",
-		"width": 1396,
-		"height": 776,
+		"source": "DSC00257.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.119,
+		"topLuminance": 0.071
 	},
 	{
 		"file": "sandlantis-03.jpg",
-		"source": "Screenshot 2026-08-25 at 17.53.25.png",
+		"source": "DSC00341.JPG",
 		"width": 2560,
-		"height": 974,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.128,
+		"topLuminance": 0.075
 	},
 	{
 		"file": "sandlantis-04.jpg",
-		"source": "Screenshot 2026-08-25 at 17.53.38.png",
-		"width": 1108,
-		"height": 672,
+		"source": "DSC00367.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.097,
+		"topLuminance": 0.051
 	},
 	{
 		"file": "sandlantis-05.jpg",
-		"source": "Screenshot 2026-08-25 at 17.53.41.png",
-		"width": 1054,
-		"height": 696,
+		"source": "DSC00430.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.159,
+		"topLuminance": 0.067
 	},
 	{
 		"file": "sandlantis-06.jpg",
-		"source": "Screenshot 2026-08-25 at 17.53.57.png",
-		"width": 1546,
-		"height": 972,
+		"source": "DSC00472.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.271,
+		"topLuminance": 0.079
 	},
 	{
 		"file": "sandlantis-07.jpg",
-		"source": "Screenshot 2026-08-25 at 17.54.04.png",
-		"width": 1556,
-		"height": 1014,
+		"source": "DSC00571.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.178,
+		"topLuminance": 0.066
 	},
 	{
 		"file": "sandlantis-08.jpg",
-		"source": "Screenshot 2026-08-25 at 17.54.13.png",
-		"width": 1572,
-		"height": 1022,
+		"source": "DSC02745.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.063,
+		"topLuminance": 0.005
 	},
 	{
 		"file": "sandlantis-09.jpg",
-		"source": "Screenshot 2026-08-25 at 17.54.20.png",
-		"width": 1574,
-		"height": 1036,
+		"source": "DSC02769.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.369,
+		"topLuminance": 0.172
 	},
 	{
 		"file": "sandlantis-10.jpg",
-		"source": "Screenshot 2026-08-25 at 17.54.27.png",
-		"width": 1580,
-		"height": 970,
+		"source": "DSC02772.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.339,
+		"topLuminance": 0.388
 	},
 	{
 		"file": "sandlantis-11.jpg",
-		"source": "Screenshot 2026-08-25 at 17.54.34.png",
-		"width": 1542,
-		"height": 922,
+		"source": "DSC02792.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.297,
+		"topLuminance": 0.267
 	},
 	{
 		"file": "sandlantis-12.jpg",
-		"source": "Screenshot 2026-08-25 at 17.54.44.png",
-		"width": 1574,
-		"height": 990,
+		"source": "DSC02837.JPG",
+		"width": 2560,
+		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.422,
+		"topLuminance": 0.371
+	},
+	{
+		"file": "sandlantis-13.jpg",
+		"source": "DSC02844.jpg",
+		"width": 2048,
+		"height": 1365,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.364,
+		"topLuminance": 0.388
+	},
+	{
+		"file": "sandlantis-14.jpg",
+		"source": "DSC03160.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.132,
+		"topLuminance": 0.054
+	},
+	{
+		"file": "sandlantis-15.jpg",
+		"source": "DSC03192.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.206,
+		"topLuminance": 0.212
+	},
+	{
+		"file": "sandlantis-16.jpg",
+		"source": "DSC04179.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.187,
+		"topLuminance": 0.108
+	},
+	{
+		"file": "sandlantis-17.jpg",
+		"source": "DSC04285.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.272,
+		"topLuminance": 0.305
+	},
+	{
+		"file": "sandlantis-18.jpg",
+		"source": "DSC04431 copy.jpg",
+		"width": 2048,
+		"height": 1365,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.236,
+		"topLuminance": 0.039
+	},
+	{
+		"file": "sandlantis-19.jpg",
+		"source": "DSC08256.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.076,
+		"topLuminance": 0.018
+	},
+	{
+		"file": "sandlantis-20.jpg",
+		"source": "DSC08850.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.139,
+		"topLuminance": 0.054
+	},
+	{
+		"file": "sandlantis-21.jpg",
+		"source": "DSC09750.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.192,
+		"topLuminance": 0.116
+	},
+	{
+		"file": "sandlantis-22.jpg",
+		"source": "HERO1.jpg",
+		"width": 2048,
+		"height": 1365,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.321,
+		"topLuminance": 0.245,
+		"role": "hero"
+	},
+	{
+		"file": "sandlantis-23.jpg",
+		"source": "HERO2.jpg",
+		"width": 2560,
+		"height": 1706,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.286,
+		"topLuminance": 0.424,
+		"role": "hero"
+	},
+	{
+		"file": "sandlantis-24.jpg",
+		"source": "HERO3.jpg",
+		"width": 2560,
+		"height": 1706,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.346,
+		"topLuminance": 0.553,
+		"role": "hero"
+	},
+	{
+		"file": "sandlantis-25.jpg",
+		"source": "TOP LANDSCAPE.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.131,
+		"topLuminance": 0.05,
+		"role": "top-landscape"
 	}
 ]

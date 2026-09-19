@@ -1,0 +1,20 @@
+[
+	{
+		"id": "medicine-field-polaroid-01",
+		"source": "KUNDA POLAROID X.mov",
+		"mp4": "/polaroids/medicine-field-polaroid-01.mp4",
+		"poster": "/polaroids/medicine-field-polaroid-01.jpg",
+		"width": 398,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "medicine-field-polaroid-02",
+		"source": "KUNDA POLAROID XX.mov",
+		"mp4": "/polaroids/medicine-field-polaroid-02.mp4",
+		"poster": "/polaroids/medicine-field-polaroid-02.jpg",
+		"width": 394,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

@@ -1,0 +1,112 @@
+[
+	{
+		"file": "print-and-communication-01.jpg",
+		"source": "ANDROMEDA copy.png",
+		"width": 2560,
+		"height": 1920,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.589,
+		"topLuminance": 0.399
+	},
+	{
+		"file": "print-and-communication-02.jpg",
+		"source": "BESITOS BONITA copy.png",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.445,
+		"topLuminance": 0.408
+	},
+	{
+		"file": "print-and-communication-03.jpg",
+		"source": "CALENDAR copy 2.png",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.647,
+		"topLuminance": 0.686
+	},
+	{
+		"file": "print-and-communication-04.jpg",
+		"source": "ChatGPT Image Sep 14, 2026, 06_33_00 PM copy.png",
+		"width": 1550,
+		"height": 1015,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.563,
+		"topLuminance": 0.575
+	},
+	{
+		"file": "print-and-communication-05.jpg",
+		"source": "ChatGPT Image Sep 14, 2026, 06_56_24 PM copy.png",
+		"width": 1536,
+		"height": 1024,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.563,
+		"topLuminance": 0.58
+	},
+	{
+		"file": "print-and-communication-06.jpg",
+		"source": "IMG_2772 copy.PNG",
+		"width": 2530,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "protect",
+		"luminance": 0.672,
+		"topLuminance": 0.891
+	},
+	{
+		"file": "print-and-communication-07.jpg",
+		"source": "IMG_9920 copy.PNG",
+		"width": 1823,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.772,
+		"topLuminance": 0.721
+	},
+	{
+		"file": "print-and-communication-08.jpg",
+		"source": "MAP RENDER copy.png",
+		"width": 1536,
+		"height": 1024,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.574,
+		"topLuminance": 0.545
+	},
+	{
+		"file": "print-and-communication-09.jpg",
+		"source": "MY SPECIAL HAIR copy.png",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.677,
+		"topLuminance": 0.753
+	},
+	{
+		"file": "print-and-communication-10.jpg",
+		"source": "ZINE copy.png",
+		"width": 2560,
+		"height": 1708,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "protect",
+		"luminance": 0.218,
+		"topLuminance": 0.0
+	}
+]

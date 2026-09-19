@@ -1,114 +1,170 @@
 [
 	{
 		"file": "medicine-field-01.jpg",
-		"source": "_DSF0193.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": null
-	},
-	{
-		"file": "medicine-field-02.jpg",
-		"source": "_DSF0196.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": null
-	},
-	{
-		"file": "medicine-field-03.jpg",
-		"source": "_DSF0199.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": null
-	},
-	{
-		"file": "medicine-field-04.jpg",
 		"source": "_DSF0205.jpg",
 		"width": 1707,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.266,
+		"topLuminance": 0.303
 	},
 	{
-		"file": "medicine-field-05.jpg",
-		"source": "DIARYOFROSS_-7.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "medicine-field-06.jpg",
-		"source": "DIARYOFROSS_-7rr.jpg",
-		"width": 1707,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "medicine-field-07.jpg",
+		"file": "medicine-field-02.jpg",
 		"source": "DIARYOFROSS_-8.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.394,
+		"topLuminance": 0.136
 	},
 	{
-		"file": "medicine-field-08.jpg",
+		"file": "medicine-field-03.jpg",
 		"source": "DIARYOFROSS_-29.jpg",
 		"width": 2560,
 		"height": 2048,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.211,
+		"topLuminance": 0.12
 	},
 	{
-		"file": "medicine-field-09.jpg",
+		"file": "medicine-field-04.jpg",
 		"source": "DIARYOFROSS_-34.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.186,
+		"topLuminance": 0.077
 	},
 	{
-		"file": "medicine-field-10.jpg",
+		"file": "medicine-field-05.jpg",
 		"source": "DIARYOFROSS_-35rr.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.33,
+		"topLuminance": 0.53
 	},
 	{
-		"file": "medicine-field-11.jpg",
+		"file": "medicine-field-06.jpg",
 		"source": "DIARYOFROSS_-41.jpg",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": "Diary of Ross"
+		"credit": "Diary of Ross",
+		"crop": "safe",
+		"luminance": 0.416,
+		"topLuminance": 0.42
 	},
 	{
-		"file": "medicine-field-12.jpg",
-		"source": "DIARYOFROSS_-44rr.jpg",
-		"width": 2560,
-		"height": 1707,
-		"orientation": "landscape",
-		"credit": "Diary of Ross"
-	},
-	{
-		"file": "medicine-field-13.jpg",
+		"file": "medicine-field-07.jpg",
 		"source": "Doppegatz_Kunda_395.jpg",
 		"width": 2560,
 		"height": 1920,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.695,
+		"topLuminance": 0.901
+	},
+	{
+		"file": "medicine-field-08.jpg",
+		"source": "HEOR1.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.28,
+		"topLuminance": 0.364
+	},
+	{
+		"file": "medicine-field-09.jpg",
+		"source": "HERO2.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.354,
+		"topLuminance": 0.282,
+		"role": "hero"
+	},
+	{
+		"file": "medicine-field-10.jpg",
+		"source": "HERO 3.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.313,
+		"topLuminance": 0.359,
+		"role": "hero"
+	},
+	{
+		"file": "medicine-field-11.jpg",
+		"source": "IMG_5029.JPG",
+		"width": 2560,
+		"height": 1731,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.494,
+		"topLuminance": 0.678
+	},
+	{
+		"file": "medicine-field-12.jpg",
+		"source": "IMG_5055.JPG",
+		"width": 2560,
+		"height": 1716,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.399,
+		"topLuminance": 0.369
 	},
 	{
 		"file": "medicine-field-14.jpg",
+		"source": "KUNDA RENDER.png",
+		"width": 1501,
+		"height": 1048,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "protect",
+		"luminance": 0.764,
+		"topLuminance": 0.91
+	},
+	{
+		"file": "medicine-field-15.jpg",
 		"source": "MF25-3.jpg",
 		"width": 1994,
 		"height": 1276,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.426,
+		"topLuminance": 0.581
+	},
+	{
+		"file": "medicine-field-16.jpg",
+		"source": "TOP LANDSCAPE.jpg",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.512,
+		"topLuminance": 0.634,
+		"role": "top-landscape"
 	}
 ]

@@ -63,8 +63,6 @@ const isPending = (value: string) => value.trim() === '[TO WRITE]';
 							<h2>
 								<a href={`/projects/${project.id}/`}>{project.data.title}</a>
 							</h2>
-							<p class:list={['project-summary', { pending: isPending(project.data.summary) }]}>{project.data.summary}</p>
-
 							<blockquote class:list={['project-pull', { pending: isPending(project.data.pull) }]}>{project.data.pull}</blockquote>
 
 							<ServiceTags tags={project.data.tags} />
@@ -94,7 +92,7 @@ const isPending = (value: string) => value.trim() === '[TO WRITE]';
 
 <style>
 	.intro {
-		padding-block: var(--space-8) var(--space-9);
+		padding-block: var(--page-head) var(--section-gap);
 	}
 
 	.intro h1 {
@@ -112,7 +110,7 @@ const isPending = (value: string) => value.trim() === '[TO WRITE]';
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-10);
-		padding-bottom: var(--space-9);
+		padding-bottom: var(--page-foot);
 	}
 
 	.project-row {
@@ -163,8 +161,12 @@ const isPending = (value: string) => value.trim() === '[TO WRITE]';
 		color: var(--text-muted);
 	}
 
+	/* Jess asked for the project name in capitals here. The pull quote below
+	   carries the voice, so the heading is set tighter, as a label would be. */
 	.project-body h2 {
 		font-size: var(--text-title);
+		text-transform: uppercase;
+		letter-spacing: var(--track-nav);
 	}
 
 	.project-body h2 a {

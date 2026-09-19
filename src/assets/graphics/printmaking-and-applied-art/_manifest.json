@@ -1,0 +1,123 @@
+[
+	{
+		"file": "printmaking-and-applied-art-01.jpg",
+		"source": "BAGHEERA.png",
+		"width": 676,
+		"height": 1018,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.632,
+		"topLuminance": 0.873
+	},
+	{
+		"file": "printmaking-and-applied-art-02.jpg",
+		"source": "CORAL BAG copy.png",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.394,
+		"topLuminance": 0.175
+	},
+	{
+		"file": "printmaking-and-applied-art-03.jpg",
+		"source": "JESS ELLIOT TEEZ.jpg",
+		"width": 1946,
+		"height": 1946,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.665,
+		"topLuminance": 0.449
+	},
+	{
+		"file": "printmaking-and-applied-art-04.jpg",
+		"source": "LAPIS.png",
+		"width": 972,
+		"height": 1226,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.563,
+		"topLuminance": 0.693
+	},
+	{
+		"file": "printmaking-and-applied-art-05.jpg",
+		"source": "MOCKUPPSOTERRG.png",
+		"width": 2560,
+		"height": 2132,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.575,
+		"topLuminance": 0.594
+	},
+	{
+		"file": "printmaking-and-applied-art-06.jpg",
+		"source": "OL STICKERS copy.png",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.495,
+		"topLuminance": 0.528
+	},
+	{
+		"file": "printmaking-and-applied-art-07.jpg",
+		"source": "PANGEA MURAL DESIGN.PNG",
+		"width": 2368,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "protect",
+		"luminance": 0.301,
+		"topLuminance": 0.188
+	},
+	{
+		"file": "printmaking-and-applied-art-08.jpg",
+		"source": "PANGEA MURAL.jpg",
+		"width": 1066,
+		"height": 1600,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.311,
+		"topLuminance": 0.395
+	},
+	{
+		"file": "printmaking-and-applied-art-09.jpg",
+		"source": "POSTCARDS copy.png",
+		"width": 2560,
+		"height": 1920,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.704,
+		"topLuminance": 0.815
+	},
+	{
+		"file": "printmaking-and-applied-art-10.jpg",
+		"source": "SCREENPRINTS.jpg",
+		"width": 1841,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.7,
+		"topLuminance": 0.407
+	},
+	{
+		"file": "printmaking-and-applied-art-11.jpg",
+		"source": "SCRL_0087.jpg",
+		"width": 1855,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.753,
+		"topLuminance": 0.709
+	}
+]

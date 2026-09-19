@@ -1,0 +1,29 @@
+[
+	{
+		"id": "sound-bowl-polaroid-01",
+		"source": "POLAROID 1.mov",
+		"mp4": "/polaroids/sound-bowl-polaroid-01.mp4",
+		"poster": "/polaroids/sound-bowl-polaroid-01.jpg",
+		"width": 404,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "sound-bowl-polaroid-02",
+		"source": "POLAROID 2.mov",
+		"mp4": "/polaroids/sound-bowl-polaroid-02.mp4",
+		"poster": "/polaroids/sound-bowl-polaroid-02.jpg",
+		"width": 402,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "sound-bowl-polaroid-03",
+		"source": "POLAROID 3.mov",
+		"mp4": "/polaroids/sound-bowl-polaroid-03.mp4",
+		"poster": "/polaroids/sound-bowl-polaroid-03.jpg",
+		"width": 402,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

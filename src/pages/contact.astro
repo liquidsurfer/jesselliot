@@ -3,6 +3,9 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+
+const email = 'jesselliot7@gmail.com';
+const whatsapp = '+27 76 053 7689';
 ---
 
 <Base
@@ -13,6 +16,21 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 		<header class="contact-intro">
 			<p class="eyebrow">Contact</p>
 			<h1 class="pending">[TO WRITE]</h1>
+
+			<dl class="contact-details">
+				<div>
+					<dt>Email</dt>
+					<dd><a href={`mailto:${email}`}>{email}</a></dd>
+				</div>
+				<div>
+					<dt>WhatsApp</dt>
+					<dd>
+						<a href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}`} rel="noopener">
+							{whatsapp}
+						</a>
+					</dd>
+				</div>
+			</dl>
 		</header>
 
 		<form id="enquiry" method="post" action="/api/enquiry" novalidate>
@@ -34,7 +52,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 				</p>
 				<p class="field">
 					<label for="organisation">
-						Festival or organisation <span class="optional">optional</span>
+						Production or organisation <span class="optional">optional</span>
 					</label>
 					<input id="organisation" name="organisation" type="text" autocomplete="organization" />
 				</p>
@@ -71,11 +89,11 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 
 			<div class="field-row">
 				<p class="field">
-					<label for="dateFrom">Build starts <span class="optional">optional</span></label>
+					<label for="dateFrom">Start date <span class="optional">optional</span></label>
 					<input id="dateFrom" name="dateFrom" type="date" />
 				</p>
 				<p class="field">
-					<label for="dateTo">Event ends <span class="optional">optional</span></label>
+					<label for="dateTo">End date <span class="optional">optional</span></label>
 					<input id="dateTo" name="dateTo" type="date" />
 				</p>
 			</div>
@@ -176,11 +194,31 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 
 <style>
 	.contact {
-		padding-block: var(--space-8) var(--space-9);
+		padding-block: var(--page-head) var(--section-gap);
 		display: grid;
 		grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
 		gap: var(--space-9) var(--gutter-strip);
 		align-items: start;
+	}
+
+	.contact-details {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-5);
+		margin: var(--space-5) 0 0;
+	}
+
+	.contact-details dt {
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-label);
+		text-transform: uppercase;
+		color: var(--text-muted);
+		margin-bottom: var(--space-1);
+	}
+
+	.contact-details dd {
+		margin: 0;
+		font-size: var(--text-body);
 	}
 
 	.contact-intro h1 {

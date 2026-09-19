@@ -1,0 +1,60 @@
+[
+	{
+		"file": "brick-painting-01.jpg",
+		"source": "HERO 1.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.531,
+		"topLuminance": 0.476,
+		"role": "hero"
+	},
+	{
+		"file": "brick-painting-02.jpg",
+		"source": "HERO 2.jpg",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.435,
+		"topLuminance": 0.4,
+		"role": "hero"
+	},
+	{
+		"file": "brick-painting-03.jpg",
+		"source": "TEXAS POLAROID.jpeg",
+		"width": 652,
+		"height": 1141,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.731,
+		"topLuminance": 0.809
+	},
+	{
+		"file": "brick-painting-04.jpg",
+		"source": "TEXAS.jpg",
+		"width": 1417,
+		"height": 1772,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.621,
+		"topLuminance": 0.83
+	},
+	{
+		"file": "brick-painting-05.jpg",
+		"source": "TOP LANDSCAPE.jpg",
+		"width": 2560,
+		"height": 797,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.609,
+		"topLuminance": 0.552,
+		"role": "top-landscape"
+	}
+]

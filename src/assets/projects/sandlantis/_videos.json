@@ -1,0 +1,29 @@
+[
+	{
+		"id": "sandlantis-polaroid-01",
+		"source": "POLAROID1.mov",
+		"mp4": "/polaroids/sandlantis-polaroid-01.mp4",
+		"poster": "/polaroids/sandlantis-polaroid-01.jpg",
+		"width": 404,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "sandlantis-polaroid-02",
+		"source": "POLAROID2.mov",
+		"mp4": "/polaroids/sandlantis-polaroid-02.mp4",
+		"poster": "/polaroids/sandlantis-polaroid-02.jpg",
+		"width": 402,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "sandlantis-polaroid-03",
+		"source": "POLAROID3.mov",
+		"mp4": "/polaroids/sandlantis-polaroid-03.mp4",
+		"poster": "/polaroids/sandlantis-polaroid-03.jpg",
+		"width": 398,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

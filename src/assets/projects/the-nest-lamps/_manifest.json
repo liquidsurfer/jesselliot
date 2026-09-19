@@ -1,0 +1,136 @@
+[
+	{
+		"file": "the-nest-lamps-01.jpg",
+		"source": "_DSF1650 copy.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.25,
+		"topLuminance": 0.158
+	},
+	{
+		"file": "the-nest-lamps-02.jpg",
+		"source": "_DSF1652 copy.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.254,
+		"topLuminance": 0.171
+	},
+	{
+		"file": "the-nest-lamps-03.jpg",
+		"source": "_DSF1806 copy.JPG",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.293,
+		"topLuminance": 0.214
+	},
+	{
+		"file": "the-nest-lamps-04.jpg",
+		"source": "_DSF1809 copy.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.343,
+		"topLuminance": 0.296
+	},
+	{
+		"file": "the-nest-lamps-05.jpg",
+		"source": "_DSF1811 copy.JPG",
+		"width": 1707,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.379,
+		"topLuminance": 0.4
+	},
+	{
+		"file": "the-nest-lamps-06.jpg",
+		"source": "_DSF1813 copy.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.382,
+		"topLuminance": 0.282
+	},
+	{
+		"file": "the-nest-lamps-07.jpg",
+		"source": "IMG_3528.JPG",
+		"width": 1786,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.329,
+		"topLuminance": 0.263
+	},
+	{
+		"file": "the-nest-lamps-08.jpg",
+		"source": "LAMP 25.JPG",
+		"width": 1716,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.436,
+		"topLuminance": 0.504
+	},
+	{
+		"file": "the-nest-lamps-09.jpg",
+		"source": "LAMP 26.jpg",
+		"width": 1365,
+		"height": 2048,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.294,
+		"topLuminance": 0.254
+	},
+	{
+		"file": "the-nest-lamps-10.jpg",
+		"source": "LAMP 2025.1.JPG",
+		"width": 1716,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.351,
+		"topLuminance": 0.327
+	},
+	{
+		"file": "the-nest-lamps-11.jpg",
+		"source": "TOP LANDSCAPE 2025.JPG",
+		"width": 2560,
+		"height": 1716,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.673,
+		"topLuminance": 0.49,
+		"role": "top-landscape"
+	},
+	{
+		"file": "the-nest-lamps-12.jpg",
+		"source": "TOP LANDSCAPE.JPG",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.385,
+		"topLuminance": 0.374,
+		"role": "top-landscape"
+	}
+]

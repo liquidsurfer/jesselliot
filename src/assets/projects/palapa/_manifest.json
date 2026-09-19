@@ -1,178 +1,281 @@
 [
 	{
 		"file": "palapa-01.jpg",
-		"source": "IMG_2727.JPG",
-		"width": 2560,
-		"height": 1703,
-		"orientation": "landscape",
-		"credit": null
+		"source": "FullSizeRender (2).jpg",
+		"width": 1716,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.483,
+		"topLuminance": 0.245
 	},
 	{
 		"file": "palapa-02.jpg",
-		"source": "IMG_2737.JPG",
+		"source": "HERO2.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.308,
+		"topLuminance": 0.294,
+		"role": "hero"
 	},
 	{
 		"file": "palapa-03.jpg",
-		"source": "IMG_2739.JPG",
-		"width": 1703,
-		"height": 2560,
-		"orientation": "portrait",
-		"credit": null
+		"source": "HERO 1.JPG",
+		"width": 2560,
+		"height": 1703,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.184,
+		"topLuminance": 0.067,
+		"role": "hero"
 	},
 	{
 		"file": "palapa-04.jpg",
+		"source": "HERO 3.JPG",
+		"width": 2560,
+		"height": 1703,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.19,
+		"topLuminance": 0.066,
+		"role": "hero"
+	},
+	{
+		"file": "palapa-05.jpg",
 		"source": "IMG_2746.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.497,
+		"topLuminance": 0.828
 	},
 	{
-		"file": "palapa-05.jpg",
+		"file": "palapa-06.jpg",
 		"source": "IMG_2752.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.147,
+		"topLuminance": 0.028
 	},
 	{
-		"file": "palapa-06.jpg",
+		"file": "palapa-07.jpg",
 		"source": "IMG_2756.JPG",
 		"width": 2560,
 		"height": 1707,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.128,
+		"topLuminance": 0.086
 	},
 	{
-		"file": "palapa-07.jpg",
+		"file": "palapa-08.jpg",
 		"source": "IMG_2760.JPG",
 		"width": 1703,
 		"height": 2560,
 		"orientation": "portrait",
-		"credit": null
-	},
-	{
-		"file": "palapa-08.jpg",
-		"source": "IMG_2763 2.JPG",
-		"width": 2560,
-		"height": 1703,
-		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.296,
+		"topLuminance": 0.353
 	},
 	{
 		"file": "palapa-09.jpg",
-		"source": "IMG_2766.JPG",
-		"width": 2560,
-		"height": 1703,
-		"orientation": "landscape",
-		"credit": null
-	},
-	{
-		"file": "palapa-10.jpg",
 		"source": "IMG_2768.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.209,
+		"topLuminance": 0.104
 	},
 	{
-		"file": "palapa-11.jpg",
+		"file": "palapa-10.jpg",
 		"source": "IMG_2770.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.128,
+		"topLuminance": 0.074
 	},
 	{
-		"file": "palapa-12.jpg",
-		"source": "IMG_2771.JPG",
-		"width": 2560,
-		"height": 1703,
-		"orientation": "landscape",
-		"credit": null
-	},
-	{
-		"file": "palapa-13.jpg",
-		"source": "IMG_2775.JPG",
-		"width": 2560,
-		"height": 1703,
-		"orientation": "landscape",
-		"credit": null
-	},
-	{
-		"file": "palapa-14.jpg",
+		"file": "palapa-11.jpg",
 		"source": "IMG_2776.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.326,
+		"topLuminance": 0.273
 	},
 	{
-		"file": "palapa-15.jpg",
+		"file": "palapa-12.jpg",
 		"source": "IMG_2780.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.221,
+		"topLuminance": 0.186
 	},
 	{
-		"file": "palapa-16.jpg",
+		"file": "palapa-13.jpg",
 		"source": "IMG_2782.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.376,
+		"topLuminance": 0.618
 	},
 	{
-		"file": "palapa-17.jpg",
+		"file": "palapa-14.jpg",
 		"source": "IMG_2783.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.629,
+		"topLuminance": 0.743
 	},
 	{
-		"file": "palapa-18.jpg",
+		"file": "palapa-15.jpg",
 		"source": "IMG_2784.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.216,
+		"topLuminance": 0.286
 	},
 	{
-		"file": "palapa-19.jpg",
+		"file": "palapa-16.jpg",
 		"source": "IMG_2787.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.08,
+		"topLuminance": 0.038
 	},
 	{
-		"file": "palapa-20.jpg",
+		"file": "palapa-17.jpg",
 		"source": "IMG_2788.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.151,
+		"topLuminance": 0.058
 	},
 	{
-		"file": "palapa-21.jpg",
+		"file": "palapa-18.jpg",
 		"source": "IMG_2790.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.419,
+		"topLuminance": 0.409
 	},
 	{
-		"file": "palapa-22.jpg",
+		"file": "palapa-19.jpg",
 		"source": "IMG_2792.JPG",
 		"width": 2560,
 		"height": 1703,
 		"orientation": "landscape",
-		"credit": null
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.264,
+		"topLuminance": 0.097
+	},
+	{
+		"file": "palapa-20.jpg",
+		"source": "IMG_3477.JPG",
+		"width": 2560,
+		"height": 1716,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.5,
+		"topLuminance": 0.368
+	},
+	{
+		"file": "palapa-21.jpg",
+		"source": "IMG_3490.JPG",
+		"width": 1716,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.58,
+		"topLuminance": 0.244
+	},
+	{
+		"file": "palapa-22.jpg",
+		"source": "IMG_3565.JPG",
+		"width": 1716,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.593,
+		"topLuminance": 0.533
+	},
+	{
+		"file": "palapa-23.jpg",
+		"source": "IMG_3616.JPG",
+		"width": 2560,
+		"height": 1716,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.514,
+		"topLuminance": 0.345
+	},
+	{
+		"file": "palapa-24.jpg",
+		"source": "IMG_3647.jpeg",
+		"width": 1179,
+		"height": 1441,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.388,
+		"topLuminance": 0.883
+	},
+	{
+		"file": "palapa-25.jpg",
+		"source": "TOP LANDSCAPE.JPG",
+		"width": 2560,
+		"height": 1703,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.626,
+		"topLuminance": 0.756,
+		"role": "top-landscape"
 	}
 ]

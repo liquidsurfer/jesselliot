@@ -1,0 +1,29 @@
+[
+	{
+		"id": "enigma-polaroid-01",
+		"source": "ENIGMA POLAROID 1.mov",
+		"mp4": "/polaroids/enigma-polaroid-01.mp4",
+		"poster": "/polaroids/enigma-polaroid-01.jpg",
+		"width": 398,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "enigma-polaroid-02",
+		"source": "ENIGMA POLAROID 2.mov",
+		"mp4": "/polaroids/enigma-polaroid-02.mp4",
+		"poster": "/polaroids/enigma-polaroid-02.jpg",
+		"width": 398,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "enigma-polaroid-03",
+		"source": "ENIGMA POLAROID 3.mov",
+		"mp4": "/polaroids/enigma-polaroid-03.mp4",
+		"poster": "/polaroids/enigma-polaroid-03.jpg",
+		"width": 396,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

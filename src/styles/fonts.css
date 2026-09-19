@@ -2,7 +2,7 @@
  * Self-hosted variable fonts, vendored into src/fonts/.
  *
  * The files come from the @fontsource-variable packages (Bodoni Moda and
- * Instrument Sans, both SIL OFL), but are committed rather than installed. Two
+ * Jost, both SIL OFL), but are committed rather than installed. Two
  * reasons:
  *
  * 1. No build-time network. Astro's font provider API fetches from
@@ -65,24 +65,58 @@
 		U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* ── Instrument Sans (UI) ───────────────────────────────────────────── */
+/* ── Jost (UI) ──────────────────────────────────────────────────────── */
+
+/*
+ * Jost replaced Instrument Sans in the UI role. Jess's own layout files set
+ * the nav, the section labels and the About lede in a geometric near-monoline
+ * sans — circular O, pointed A, straight-legged R — and Instrument Sans is a
+ * neutral grotesque, which read as a different system next to her work.
+ *
+ * Jost is the closest open face to it and, like the other two here, is
+ * variable: one file covers 100-900, so the whole weight range costs what a
+ * single static weight used to. Bodoni Moda is untouched — her project-page
+ * mockup sets the title and the pull quote in a serif, so the two-font split
+ * stays exactly as it was.
+ */
 
 @font-face {
-	font-family: 'Instrument Sans Variable';
+	font-family: 'Jost Variable';
 	font-style: normal;
 	font-display: swap;
-	font-weight: 400 700;
-	src: url('../fonts/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
+	font-weight: 100 900;
+	src: url('../fonts/jost-latin-wght-normal.woff2') format('woff2-variations');
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
 		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-	font-family: 'Instrument Sans Variable';
+	font-family: 'Jost Variable';
 	font-style: normal;
 	font-display: swap;
-	font-weight: 400 700;
-	src: url('../fonts/instrument-sans-latin-ext-wght-normal.woff2') format('woff2-variations');
+	font-weight: 100 900;
+	src: url('../fonts/jost-latin-ext-wght-normal.woff2') format('woff2-variations');
+	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
+		U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
+		U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+	font-family: 'Jost Variable';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url('../fonts/jost-latin-wght-italic.woff2') format('woff2-variations');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+		U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+	font-family: 'Jost Variable';
+	font-style: italic;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url('../fonts/jost-latin-ext-wght-italic.woff2') format('woff2-variations');
 	unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308,
 		U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113,
 		U+2C60-2C7F, U+A720-A7FF;

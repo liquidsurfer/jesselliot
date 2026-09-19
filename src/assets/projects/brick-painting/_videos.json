@@ -1,0 +1,20 @@
+[
+	{
+		"id": "brick-painting-polaroid-01",
+		"source": "BRICK POLAROID 2.mov",
+		"mp4": "/polaroids/brick-painting-polaroid-01.mp4",
+		"poster": "/polaroids/brick-painting-polaroid-01.jpg",
+		"width": 398,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "brick-painting-polaroid-02",
+		"source": "BRICK POLAROID .mov",
+		"mp4": "/polaroids/brick-painting-polaroid-02.mp4",
+		"poster": "/polaroids/brick-painting-polaroid-02.jpg",
+		"width": 396,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

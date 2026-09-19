@@ -1,4 +1,4 @@
 ---
 title: Scenic Painting
-order: 40
+order: 70
 ---

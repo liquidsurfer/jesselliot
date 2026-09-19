@@ -1,0 +1,149 @@
+[
+	{
+		"file": "sound-bowl-01.jpg",
+		"source": "HERO1.JPG",
+		"width": 640,
+		"height": 638,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.401,
+		"topLuminance": 0.317,
+		"role": "hero"
+	},
+	{
+		"file": "sound-bowl-02.jpg",
+		"source": "HERO3.jpg",
+		"width": 2160,
+		"height": 1434,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.263,
+		"topLuminance": 0.239,
+		"role": "hero"
+	},
+	{
+		"file": "sound-bowl-03.jpg",
+		"source": "HERO 2.jpg",
+		"width": 1777,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.406,
+		"topLuminance": 0.603,
+		"role": "hero"
+	},
+	{
+		"file": "sound-bowl-04.jpg",
+		"source": "SCRL_0025.jpg",
+		"width": 727,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.313,
+		"topLuminance": 0.314
+	},
+	{
+		"file": "sound-bowl-05.jpg",
+		"source": "SCRL_0026 2.jpg",
+		"width": 2160,
+		"height": 1490,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.359,
+		"topLuminance": 0.298
+	},
+	{
+		"file": "sound-bowl-06.jpg",
+		"source": "SCRL_0026.jpg",
+		"width": 2160,
+		"height": 1492,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.366,
+		"topLuminance": 0.325
+	},
+	{
+		"file": "sound-bowl-07.jpg",
+		"source": "SCRL_0027.jpg",
+		"width": 2560,
+		"height": 794,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.378,
+		"topLuminance": 0.409
+	},
+	{
+		"file": "sound-bowl-08.jpg",
+		"source": "SCRL_0028.jpg",
+		"width": 2160,
+		"height": 1438,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.318,
+		"topLuminance": 0.29
+	},
+	{
+		"file": "sound-bowl-09.jpg",
+		"source": "SCRL_0029 copy.jpg",
+		"width": 2160,
+		"height": 1436,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.474,
+		"topLuminance": 0.478
+	},
+	{
+		"file": "sound-bowl-10.jpg",
+		"source": "SCRL_0030 2.jpg",
+		"width": 1773,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.359,
+		"topLuminance": 0.234
+	},
+	{
+		"file": "sound-bowl-11.jpg",
+		"source": "SCRL_0030.jpg",
+		"width": 1773,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.338,
+		"topLuminance": 0.194
+	},
+	{
+		"file": "sound-bowl-12.jpg",
+		"source": "SOUNDBOWL.png",
+		"width": 1390,
+		"height": 1132,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "protect",
+		"luminance": 0.806,
+		"topLuminance": 0.9
+	},
+	{
+		"file": "sound-bowl-13.jpg",
+		"source": "TOP LANDSCAPE.jpg",
+		"width": 2160,
+		"height": 1436,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.312,
+		"topLuminance": 0.276,
+		"role": "top-landscape"
+	}
+]

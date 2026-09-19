@@ -2,8 +2,21 @@
 interface Props {
 	/** Lets imagery run under the header. */
 	overlay?: boolean;
+	/**
+	 * Float the header over imagery with no bar behind it. The homepage
+	 * overlay keeps its white band — Jess asked for that explicitly — but a
+	 * project hero wants the photograph running right to the top of the
+	 * window.
+	 */
+	float?: boolean;
+	/**
+	 * Set the links light, for a float over a dark photograph. Decided per
+	 * project from the hero's top-strip brightness, which ranges from 0.05
+	 * to 0.76 across this work — no single treatment is readable on both.
+	 */
+	invert?: boolean;
 }
-const { overlay = false } = Astro.props;
+const { overlay = false, float = false, invert = false } = Astro.props;
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
@@ -11,11 +24,12 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 const links = [
 	{ href: '/about/', label: 'About the artist' },
 	{ href: '/projects/', label: 'Projects' },
+	{ href: '/graphics/', label: 'Graphics' },
 	{ href: '/contact/', label: 'Contact' },
 ];
 ---
 
-<header class:list={['site-header', { overlay }]}>
+<header class:list={['site-header', { overlay, float, invert }]}>
 	<!-- The logo is the way home from anywhere. It is the only animated brand
 	     element in the system — nothing else distorts. -->
 	<a class="wordmark" href="/" aria-label="Jess Elliot — home">
@@ -81,20 +95,65 @@ const links = [
 	/*
 	 * Where imagery runs under the header it is fixed, not sticky, so it takes
 	 * no space in the flow — the design system's landing has the header sitting
-	 * still while the work moves sideways beneath it. Gradient rather than a
-	 * bar so nothing hard-edged cuts across the photography.
+	 * still while the work moves sideways beneath it.
+	 *
+	 * Plain white, not the sand gradient the design system ships: Jess asked
+	 * for the beige taken off the header specifically. The strip sits well
+	 * below it, so there is nothing for a gradient to soften.
 	 */
 	.site-header.overlay {
 		position: fixed;
 		left: 0;
 		right: 0;
-		background: linear-gradient(
-			to bottom,
-			var(--surface-page) 0%,
-			var(--surface-page) 55%,
-			transparent 100%
-		);
-		padding-bottom: var(--space-7);
+		background: #fff;
+		padding-bottom: var(--space-5);
+	}
+
+	/*
+	 * Over a photograph the header carries no bar — just the links. Legibility
+	 * comes from setting them light or dark to suit the image rather than from
+	 * a panel laid over it; a white scrim strong enough to guarantee dark text
+	 * erases the top of the picture, which is the one thing a full-bleed hero
+	 * exists to show. The gradients below are a lift, not a cover.
+	 */
+	.site-header.overlay.float {
+		background: linear-gradient(to bottom, rgb(255 255 255 / 0.5), transparent);
+	}
+
+	.site-header.overlay.float.invert {
+		background: linear-gradient(to bottom, rgb(0 0 0 / 0.42), transparent);
+	}
+
+	.site-header.overlay.float.invert .nav-desktop > a,
+	.site-header.overlay.float.invert .bars,
+	.site-header.overlay.float.invert .bars::before,
+	.site-header.overlay.float.invert .bars::after {
+		color: #fff;
+	}
+
+	.site-header.overlay.float.invert .nav-desktop > a {
+		color: rgb(255 255 255 / 0.82);
+	}
+
+	.site-header.overlay.float.invert .nav-desktop > a:hover,
+	.site-header.overlay.float.invert .nav-desktop [aria-current='page'] {
+		color: #fff;
+	}
+
+	.site-header.overlay.float.invert .nav-desktop [aria-current='page'] {
+		border-bottom-color: #fff;
+	}
+
+	.site-header.overlay.float.invert .bars,
+	.site-header.overlay.float.invert .bars::before,
+	.site-header.overlay.float.invert .bars::after {
+		background: #fff;
+	}
+
+	/* The wordmark is hand-drawn copper; on a dark frame it needs lifting
+	   rather than recolouring, which would throw away the artwork. */
+	.site-header.overlay.float.invert .wordmark img {
+		filter: drop-shadow(0 1px 10px rgb(0 0 0 / 0.55));
 	}
 
 	.wordmark {

@@ -1,0 +1,211 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { justifyRows, flexFor } from '../lib/justify';
+
+/*
+	Visual Communication — Jess's graphic design work.
+
+	Built from her own layout file, GRAPHIC PORTFOLIO LAYOUT.png in the
+	GRAPHIC DESIGN folder: three titled sections, each a stack of full-bleed
+	justified rows that run edge to edge with hairline gutters. Images keep
+	their proportions; the rows do the fitting. Nothing is cropped, because
+	the work *is* the image here — a cropped poster is a ruined poster.
+
+	Not a project: no write-ups, no dates, no credits, just three named groups.
+	So it reads its own folders rather than the projects collection, which is
+	why build_assets.py writes these to src/assets/graphics/<section>/.
+*/
+
+type ManifestEntry = {
+	file: string;
+	width: number;
+	height: number;
+	luminance?: number;
+	crop?: 'safe' | 'protect';
+};
+
+const files = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/graphics/**/*.{jpg,jpeg,png,webp}',
+	{ eager: true },
+);
+
+const manifests = import.meta.glob<{ default: ManifestEntry[] }>(
+	'/src/assets/graphics/**/_manifest.json',
+	{ eager: true },
+);
+
+/*
+	Section titles are Jess's, from her layout. The middle folder on the drive
+	is named "PRINT + COMMUNICATION" but both her layout file and her change
+	document call the section "PRINT + EDITORIAL", so the folder is the odd one
+	out and the title wins.
+*/
+const SECTIONS = [
+	{ slug: 'identity-and-branding', title: 'Identity + Branding' },
+	{ slug: 'print-and-communication', title: 'Print + Editorial' },
+	{ slug: 'printmaking-and-applied-art', title: 'Printmaking + Applied Art' },
+];
+
+const sections = SECTIONS.map(({ slug, title }) => {
+	const entries = manifests[`/src/assets/graphics/${slug}/_manifest.json`]?.default ?? [];
+
+	const images = entries
+		.map((entry) => {
+			const mod = files[`/src/assets/graphics/${slug}/${entry.file}`];
+			if (!mod) return null;
+			return {
+				src: mod.default,
+				aspect: entry.width / entry.height,
+				luminance: (entry as { luminance?: number }).luminance ?? 0.5,
+				crop: (entry as { crop?: string }).crop ?? 'safe',
+				// Jess's filenames are working names ("LAPIS BRANDING", "OUR
+				// LOCAL"), not descriptions, so they are not reused as alt text.
+				// Alt text here is hers to write — see the no-AI-text rule.
+				alt: '',
+			};
+		})
+		.filter((x): x is NonNullable<typeof x> => x !== null);
+
+	// Denser than a project gallery: her layout runs four to six pieces across.
+	return { slug, title, rows: justifyRows(images, { targetRowHeight: 300, maxRowHeight: 470 }) };
+}).filter((section) => section.rows.length > 0);
+
+const ogImage = sections[0]?.rows[0]?.[0]?.image?.src.src;
+---
+
+<Base
+	title="Visual Communication"
+	description="Graphic design by Jess Elliot — identity and branding, print and editorial, printmaking and applied art."
+	ogImage={ogImage}
+>
+	<header class="intro">
+		<h1>Visual Communication</h1>
+		<p class="subtitle">+ Graphic Design</p>
+	</header>
+
+	{
+		sections.map((section) => (
+			<section class="section" aria-labelledby={`s-${section.slug}`}>
+				<h2 id={`s-${section.slug}`}>{section.title}</h2>
+				<div class="rows">
+					{section.rows.map((row) => (
+						<div class="row">
+							{row.map((cell) =>
+								cell.image ? (
+									<figure style={`flex: ${flexFor(cell)}`}>
+										<Image
+											src={cell.image.src}
+											alt={cell.image.alt}
+											widths={[400, 800, 1400]}
+											sizes="(max-width: 700px) 100vw, 40vw"
+											loading="lazy"
+										/>
+									</figure>
+								) : (
+									/* Closes a short final row so the pieces beside it keep
+									   the height of the row above. */
+									<div class="filler" style={`flex: ${flexFor(cell)}`} aria-hidden="true" />
+								),
+							)}
+						</div>
+					))}
+				</div>
+			</section>
+		))
+	}
+</Base>
+
+<style>
+	/* The title block and the section labels sit on the page margin; the
+	   imagery does not — her rows run to both edges of the window. */
+	.intro {
+		padding: var(--page-head) var(--page-margin) var(--space-7);
+	}
+
+	.intro h1 {
+		margin: 0;
+		font-family: var(--font-ui);
+		font-size: var(--text-display);
+		font-weight: 300;
+		letter-spacing: 0.01em;
+		text-transform: uppercase;
+	}
+
+	.subtitle {
+		margin: var(--space-1) 0 0;
+		font-family: var(--font-ui);
+		font-size: var(--text-subhead);
+		font-weight: 300;
+		text-transform: uppercase;
+		letter-spacing: 0.01em;
+		color: var(--text-secondary);
+	}
+
+	.section h2 {
+		margin: 0 0 var(--space-4);
+		padding-inline: var(--page-margin);
+		font-family: var(--font-ui);
+		font-size: var(--text-subhead);
+		font-weight: 400;
+		letter-spacing: 0.01em;
+		text-transform: uppercase;
+		color: var(--text-primary);
+	}
+
+	/*
+	 * "make the white space in between the sections equal please" — so the
+	 * rhythm is one value on one side only. A margin on both sides would
+	 * collapse differently at the first and last section and read as uneven.
+	 */
+	.section + .section {
+		margin-top: var(--space-10);
+	}
+
+	.section:last-of-type {
+		padding-bottom: var(--page-foot);
+	}
+
+	.rows {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	/*
+	 * Each row is one flex line. Children carry `flex: <aspect> 1 0%`, so their
+	 * widths come out proportional to their aspect ratios and every image in
+	 * the row lands on the same height — the row fits the width exactly,
+	 * whatever the window is doing. See src/lib/justify.ts.
+	 */
+	.row {
+		display: flex;
+		gap: 4px;
+	}
+
+	.row figure,
+	.row .filler {
+		margin: 0;
+		min-width: 0;
+	}
+
+	.row :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	/*
+	 * Phone: a five-across row of posters is unreadable, so the rows unwind
+	 * into a single column at full width. The justified maths is a
+	 * wide-viewport idea; below that the work just wants to be big.
+	 */
+	@media (max-width: 700px) {
+		.row {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 4px;
+		}
+	}
+</style>

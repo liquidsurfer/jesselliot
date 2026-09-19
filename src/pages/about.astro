@@ -1,131 +1,299 @@
 ---
-import { getCollection } from 'astro:content';
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { coverFor } from '../lib/gallery';
 
 /*
-	The body copy here is Jess's to write. The previous version was an AI draft
-	in her voice and has been removed — see the no-AI-text rule in AGENTS.md.
+	About the artist.
 
-	The two lists below are derived from the project data rather than written,
-	so they stay true on their own as projects are added.
+	Built from Jess's own layout file, JESS ELLIOT ABOUT LAYOUT-01.png in the
+	ABOUT THE ARTIST folder: portrait left and write-up right, the "works
+	across" list tucked under the portrait, then a four-up of working shots,
+	then one full-bleed texture to close.
+
+	All the copy on this page is Jess's, from her change document, verbatim.
+	The earlier version of this page carried an AI-written draft in her voice;
+	that was removed and must not come back. See AGENTS.md.
 */
 
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+type ManifestEntry = { file: string; source: string; width: number; height: number };
 
-const portrait = coverFor(projects[0]);
+const files = import.meta.glob<{ default: ImageMetadata }>(
+	'/src/assets/about/*.{jpg,jpeg,png,webp}',
+	{ eager: true },
+);
+const manifests = import.meta.glob<{ default: ManifestEntry[] }>(
+	'/src/assets/about/_manifest.json',
+	{ eager: true },
+);
 
-const worksAcross = services.map((service) => service.data.title);
-const builtWith = [...new Set(projects.map((p) => p.data.client).filter(Boolean))];
+const entries = manifests['/src/assets/about/_manifest.json']?.default ?? [];
+const imageOf = (entry?: ManifestEntry) =>
+	entry ? files[`/src/assets/about/${entry.file}`]?.default : undefined;
+
+/*
+	The pipeline renames on ingest, so images are found by the original
+	filename the manifest keeps in `source`. Jess's layout uses the portrait
+	top left, four working shots in the four-up and the texture as the closer;
+	her two LAYOUT-0N.png reference files are the layout itself, not content.
+*/
+const sourceOf = (entry: ManifestEntry) => entry.source.toUpperCase();
+const find = (needle: string) => entries.find((e) => sourceOf(e).includes(needle));
+
+const portrait = imageOf(find('ABOUT ME MAIN'));
+const closer = imageOf(find('TEXTURE'));
+
+const NOT_CONTENT = ['ABOUT ME MAIN', 'TEXTURE', 'LAYOUT'];
+const grid = entries
+	.filter((e) => !NOT_CONTENT.some((skip) => sourceOf(e).includes(skip)))
+	.map(imageOf)
+	.filter((x): x is ImageMetadata => Boolean(x))
+	.slice(0, 4);
+
+/*
+	Her own list, not the project tag vocabulary — it runs to ten and includes
+	Illustration and Graphic Design, which are not things a project is tagged
+	with. Deriving it from the services collection would quietly drop those two.
+*/
+const worksAcross = [
+	'Creative Direction',
+	'Stage Design',
+	'Immersive Installation',
+	'Scenic Painting',
+	'Props',
+	'Set Dec',
+	'Decor',
+	'Fabrication',
+	'Illustration',
+	'Graphic Design',
+];
+
+const interview =
+	'https://www.soundguide.co/news/building-other-worlds-the-art-of-immersive-stage-design-with-jess-elliot';
 ---
 
-<Base title="About the artist" description="Jess Elliot — creative direction, stage design and scenic environments.">
+<Base
+	title="About the artist"
+	description="Jess Elliot is a multidisciplinary South African artist and designer creating spatial environments, immersive installations and visual worlds through physical and digital practices."
+	ogImage={portrait?.src}
+>
 	<article class="about">
-		<header class="page about-header">
-			<p class="eyebrow">About the artist</p>
-			<h1 class="pending">[TO WRITE]</h1>
-		</header>
+		<div class="page top">
+			<div class="portrait-col">
+				{
+					portrait && (
+						<Image
+							src={portrait}
+							alt="Jess Elliot"
+							widths={[500, 900, 1300]}
+							sizes="(max-width: 860px) 92vw, 41vw"
+							loading="eager"
+						/>
+					)
+				}
+
+				<div class="aside-block">
+					<h2 class="label">Works across</h2>
+					<p>{worksAcross.join(' • ')}</p>
+				</div>
+			</div>
+
+			<div class="write-up">
+				<p class="lede">
+					Jess Elliot is a multidisciplinary South African artist and designer creating
+					spatial environments, immersive installations and visual worlds through physical
+					and digital practices.
+				</p>
+
+				<p>
+					Her work moves between concept, design and hands-on production, bringing together
+					colour, texture, material and form to transform spaces and communicate ideas.
+					Working across festivals, cultural spaces, film and collaborative productions
+					internationally and in South Africa, her practice spans creative direction, stage
+					and spatial design, scenic painting, fabrication, installation, graphic design and
+					illustration.
+				</p>
+
+				<p>
+					Her approach is tactile, adaptive and grounded in experimentation through
+					technique, developing projects from early ideas and drawings through to their
+					physical or visual realisation. Collaboration is central to this process, working
+					alongside artists, designers, fabricators, builders and production teams to shape
+					environments and experiences.
+				</p>
+
+				<p>
+					Across disciplines, her work is connected by her love for storytelling, atmosphere
+					and transformation through craft, whether building an immersive space or visually
+					communicating through graphics and illustration. Her work invites interaction,
+					immersion, curiosity and discovery, creating sensory experiences that are not only
+					impactful visually, but entered, embodied, felt.
+				</p>
+
+				<p class="interview">
+					<a href={interview} rel="noopener">Interviewed by Sound Guide — Building other worlds</a>
+				</p>
+			</div>
+		</div>
 
 		{
-			portrait && (
-				<figure class="about-image">
-					<Image src={portrait.src} alt="" widths={[800, 1400, 2000]} sizes="100vw" loading="eager" />
-					{portrait.credit && <figcaption>Photograph by {portrait.credit}</figcaption>}
-				</figure>
+			grid.length > 0 && (
+				<div class="page grid">
+					{grid.map((image) => (
+						<figure>
+							<Image
+								src={image}
+								alt=""
+								widths={[400, 700, 1000]}
+								sizes="(max-width: 860px) 46vw, 23vw"
+								loading="lazy"
+							/>
+						</figure>
+					))}
+				</div>
 			)
 		}
 
-		<div class="page about-body">
-			<div class="prose">
-				<p class="pending">[TO WRITE]</p>
-			</div>
-
-			<aside class="about-aside">
-				<div class="aside-block">
-					<h2 class="label">Works across</h2>
-					<p>{worksAcross.join(' · ')}</p>
-				</div>
-				<div class="aside-block">
-					<h2 class="label">Has built with</h2>
-					<p>{builtWith.join(' · ')}</p>
-				</div>
-			</aside>
-		</div>
+		{
+			closer && (
+				<figure class="closer">
+					<Image
+						src={closer}
+						alt=""
+						widths={[900, 1600, 2400]}
+						sizes="100vw"
+						loading="lazy"
+					/>
+				</figure>
+			)
+		}
 	</article>
 </Base>
 
 <style>
-	.about-header {
-		padding-block: var(--space-8) var(--space-7);
+	/* Her layout: portrait a little narrower than the text, a wide gutter
+	   between, both columns topped out on the same line. */
+	.top {
+		display: grid;
+		grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+		gap: var(--space-9);
+		align-items: start;
+		padding-block: var(--page-head) var(--section-gap);
 	}
 
-	.about-header h1 {
-		font-size: var(--text-display);
-		line-height: var(--lh-snug);
-		max-width: 24ch;
-		margin-top: var(--space-4);
+	/*
+	 * The write-up hangs below the top of the portrait rather than starting
+	 * level with it — in Jess's layout the portrait's top edge is the highest
+	 * thing on the page and the text drops in beneath by about 7% of the page
+	 * width. Ours had the text starting 2.6% *above* the image, which is what
+	 * made the pairing read as accidental rather than composed.
+	 */
+	.write-up {
+		padding-top: var(--text-hang);
 	}
 
-	.about-image :global(img) {
+	.portrait-col :global(img) {
+		display: block;
 		width: 100%;
 		height: auto;
-		max-height: 72vh;
-		object-fit: cover;
 	}
 
-	.about-image figcaption {
-		padding: var(--space-3) var(--page-margin) 0;
+	.aside-block {
+		margin-top: var(--space-5);
+	}
+
+	.label {
+		margin: 0 0 var(--space-2);
+		font-family: var(--font-ui);
 		font-size: var(--text-micro);
-		letter-spacing: var(--track-nav);
+		letter-spacing: var(--track-label);
 		text-transform: uppercase;
 		color: var(--text-muted);
 	}
 
-	/* About.jsx: minmax(0,0.9fr) minmax(0,1.1fr) with --space-9 between. */
-	.about-body {
-		display: grid;
-		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-		gap: var(--space-9);
-		padding-block: var(--space-8) var(--space-10);
-		align-items: start;
-	}
-
-	.prose {
-		max-width: 58ch;
-	}
-
-	.about-aside {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-6);
-	}
-
 	.aside-block p {
-		margin-top: var(--space-2);
-		line-height: var(--lh-body);
+		margin: 0;
+		font-family: var(--font-ui);
+		font-size: var(--text-caption);
+		line-height: var(--lh-relaxed);
 		color: var(--text-secondary);
 	}
 
-	@media (max-width: 800px) {
-		.about-body {
-			grid-template-columns: 1fr;
-			gap: var(--space-7);
-		}
+	.write-up p {
+		margin: 0 0 var(--space-4);
+		font-family: var(--font-ui);
+		font-size: var(--text-body);
+		line-height: var(--lh-relaxed);
+		color: var(--text-secondary);
+	}
+
+	/* The opening statement is set in caps in her layout, at display size and
+	   light weight — it is the one piece of type on the page doing any work. */
+	.lede {
+		text-transform: uppercase;
+		font-size: var(--text-subhead) !important;
+		line-height: var(--lh-snug);
+		letter-spacing: 0.01em;
+		color: var(--text-primary) !important;
+		margin-bottom: var(--space-5) !important;
+	}
+
+	.interview a {
+		color: var(--text-primary);
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--space-3);
+		padding-bottom: var(--section-gap);
+	}
+
+	.grid figure {
+		margin: 0;
+	}
+
+	.grid :global(img) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		aspect-ratio: 4 / 5;
+	}
+
+	/* Runs to both edges of the window, as in her layout — the only full-bleed
+	   element on the page, which is what gives it the closing beat. */
+	.closer {
+		margin: 0;
 	}
 
 	/*
-	 * Astro rewrites `.about-header h1` to `.about-header[cid] h1[cid]`, which
-	 * outranks a bare `h1.pending`. Match the same depth so a placeholder is
-	 * never dressed up as the heading it stands in for.
+	 * A band, not a block. Hers measures 36.9% of the page width; a 70vh cap
+	 * made ours 48-58% depending on the window, so the closing image read as
+	 * a second hero rather than a full stop. An aspect ratio holds the
+	 * proportion at every size, which a viewport-height cap cannot.
 	 */
-	.about-header h1.pending,
-	.prose p.pending {
-		font-family: var(--font-ui);
-		font-size: var(--text-body);
-		letter-spacing: var(--track-label);
-		color: var(--text-muted);
-		max-width: none;
+	.closer :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2.71;
+		object-fit: cover;
+	}
+
+	@media (max-width: 860px) {
+		.top {
+			grid-template-columns: 1fr;
+			gap: var(--space-6);
+		}
+
+		/* Stacked, so there is no image to hang from. */
+		.write-up {
+			padding-top: 0;
+		}
+
+		.grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
 	}
 </style>

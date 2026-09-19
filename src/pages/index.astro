@@ -23,7 +23,13 @@ import { landingPool, coverFor } from '../lib/gallery';
 	ever fetched.
 */
 
-const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+// Sub-projects (Lamps) belong inside their parent, not beside it on the
+// strip — Jess's running order is sixteen projects, and Lamps is within The
+// Nest. Drafts stay off the homepage for the same reason they stay off the
+// projects index.
+const projects = (
+	await getCollection('projects', ({ data }) => !data.draft && !data.parent)
+).sort((a, b) => a.data.order - b.data.order);
 
 const boxes = await Promise.all(
 	projects.map(async (project) => {
@@ -36,17 +42,22 @@ const boxes = await Promise.all(
 					widths: [220, 330, 440, 660],
 					format: 'webp',
 				});
-				return { src: built.src, srcset: built.srcSet.attribute };
+				return { src: built.src, srcset: built.srcSet.attribute, crop: image.crop };
 			}),
 		);
 
 		const { yearStart, yearEnd } = project.data;
 		const years = yearEnd && yearEnd !== yearStart ? `${yearStart}–${yearEnd}` : `${yearStart}`;
 
+		// The caption names the festival or production, not the city: Jess's
+		// brief is "ENIGMA / PANGEA FESTIVAL 2020 - 2025". Location falls back
+		// in only where a project has no client to name.
+		const where = project.data.client ?? project.data.location;
+
 		return {
 			href: `/projects/${project.id}/`,
 			title: project.data.title,
-			meta: `${project.data.location} — ${years}`,
+			meta: `${where} ${years}`,
 			alt: pool[0]?.alt ?? project.data.title,
 			fallback: variants[0],
 			variants,
@@ -112,19 +123,25 @@ const ogImage = coverFor(projects[0])?.src.src;
 			var pick = list[Math.floor(Math.random() * list.length)];
 			if (pick.srcset) el.setAttribute('srcset', pick.srcset);
 			el.setAttribute('src', pick.src);
+			// A framed piece sits inside the box rather than filling it.
+			if (pick.crop === 'protect') el.setAttribute('data-crop', 'protect');
 		}
 	})();
 </script>
 
 <style>
 	/*
-	 * The shipped landing template paints the page --paper-sand rather than
-	 * white, and hides the scrollbar so the sideways travel reads as the only
+	 * White, not the design system template's --paper-sand. Jess: "Make
+	 * background plain white (remove beige gradient)" — her two example strips
+	 * are white end to end and the beige one is the screenshot she marked as
+	 * the problem, so this is the page, not just the header.
+	 *
+	 * The scrollbar is still hidden so the sideways travel reads as the only
 	 * motion. Scoped to this page via :global on the document element.
 	 */
 	:global(html:has(.stage)),
 	:global(html:has(.stage) body) {
-		background: var(--paper-sand);
+		background: var(--paper);
 	}
 
 	:global(html:has(.stage))::-webkit-scrollbar {
@@ -144,6 +161,13 @@ const ogImage = coverFor(projects[0])?.src.src;
 		--box-w: clamp(150px, 15vw, 240px);
 
 		display: flex;
+		/*
+		 * One box, repeated. Measuring Jess's homepage mockup gives every tile
+		 * an aspect of 0.748 with no spread — her strip is uniform and the
+		 * photographs are cropped to fit it, not laid out at their natural
+		 * proportions. An earlier pass here read the ragged tops of her
+		 * *examples* as intent; they were the mockup's own crop.
+		 */
 		align-items: flex-start;
 		gap: calc(100vw * 0.035);
 		/* Sit the strip's centre at 58vh, same as the driven layer. */
@@ -161,6 +185,7 @@ const ogImage = coverFor(projects[0])?.src.src;
 		flex: 0 0 auto;
 		width: var(--box-w);
 		display: block;
+		position: relative;
 		text-decoration: none;
 	}
 
@@ -182,6 +207,8 @@ const ogImage = coverFor(projects[0])?.src.src;
 		gap: 0;
 	}
 
+	/* Every tile is the same height, so one shared `top` puts them all on the
+	   same line — set from script, once per build(). */
 	.stage.driven .box {
 		position: absolute;
 		left: 0;
@@ -195,27 +222,42 @@ const ogImage = coverFor(projects[0])?.src.src;
 		margin: 0;
 	}
 
+	/*
+	 * The uniform box. No placeholder fill — a sand rectangle behind a loading
+	 * image is the beige Jess asked us to remove coming back in through a side
+	 * door.
+	 */
 	.frame {
 		position: relative;
 		width: 100%;
 		aspect-ratio: var(--strip-image-ratio);
 		overflow: hidden;
-		background: var(--surface-sunken);
 		display: grid;
 		place-items: center;
+		transition:
+			width var(--dur-4) var(--ease-drift),
+			aspect-ratio var(--dur-4) var(--ease-drift),
+			margin var(--dur-4) var(--ease-drift);
 	}
 
 	.frame img {
+		display: block;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		transition:
-			transform var(--dur-4) var(--ease-drift),
-			filter var(--dur-3) var(--ease-drift);
+		transition: filter var(--dur-3) var(--ease-drift);
+	}
+
+	/*
+	 * A poster or a framed artwork is not croppable — slicing its border is
+	 * the same as slicing the work. Those sit inside the box instead of
+	 * filling it. See analyse() in scripts/build_assets.py.
+	 */
+	.frame img[data-crop='protect'] {
+		object-fit: contain;
 	}
 
 	.frame:has(.empty) {
-		background: transparent;
 		border: var(--border-hair);
 	}
 
@@ -234,6 +276,9 @@ const ogImage = coverFor(projects[0])?.src.src;
 		gap: 4px;
 		min-height: 56px;
 		padding-top: var(--space-3);
+		transition:
+			width var(--dur-4) var(--ease-drift),
+			margin var(--dur-4) var(--ease-drift);
 	}
 
 	.box-title {
@@ -271,11 +316,49 @@ const ogImage = coverFor(projects[0])?.src.src;
 		.box:focus-visible figcaption {
 			opacity: 1;
 			transform: none;
+			/*
+			 * Follow the frame out. The caption sits in the box at its base
+			 * width, so without this it stays indented from the left edge of
+			 * the tile it belongs to — in her reference the two line up.
+			 */
+			width: calc(var(--strip-hover-scale) * 100%);
+			margin-inline-start: calc((100% - var(--strip-hover-scale) * 100%) / 2);
+		}
+
+		/*
+		 * Jess: "grow bigger to this size reference when hovering over."
+		 *
+		 * Grown by layout, not by transform. A transform leaves the caption
+		 * where it was, so a tile scaled 1.5x swallowed its own title — the
+		 * text ended up 70px inside the photograph. Changing the frame's real
+		 * width and height pushes the caption down with it, which is where her
+		 * reference puts it.
+		 *
+		 * The negative margins are half the growth in each axis, so the tile
+		 * expands about its own centre and the row's optical line holds. Her
+		 * reference drifts 0px vertically; so does this.
+		 *
+		 * Neighbours never move: the strip's gap is wide enough to absorb the
+		 * growth, exactly as in her reference, and the tile lifts above them.
+		 */
+		.box:hover .frame,
+		.box:focus-visible .frame {
+			width: calc(var(--strip-hover-scale) * 100%);
+			aspect-ratio: var(--strip-hover-ratio);
+			margin-inline-start: calc((100% - var(--strip-hover-scale) * 100%) / 2);
+			margin-block-start: calc(
+				(100% / var(--strip-image-ratio) - var(--strip-hover-scale) * 100% /
+							var(--strip-hover-ratio)) / 2
+			);
+		}
+
+		.box:hover,
+		.box:focus-visible {
+			z-index: 5;
 		}
 
 		.box:hover .frame img,
 		.box:focus-visible .frame img {
-			transform: scale(1.06);
 			filter: saturate(1.06);
 		}
 	}
@@ -366,12 +449,49 @@ const ogImage = coverFor(projects[0])?.src.src;
 			margin = Math.min(56, Math.max(24, w * 0.04));
 
 			let cursor = 0;
+			// The project at the end of the cycle just placed, so the next
+			// cycle can avoid opening with it.
+			let previous = -1;
+			const passes: number[][] = [];
+
 			for (let c = 0; c < CYCLES; c++) {
 				const order = source.map((_, i) => i);
 				for (let i = order.length - 1; i > 0; i--) {
 					const j = Math.floor(rand() * (i + 1));
 					[order[i], order[j]] = [order[j], order[i]];
 				}
+
+				/*
+					Each pass is shuffled independently, so nothing stops one
+					ending on the same project the next one starts with — and
+					because a tile's photograph is chosen once per page load and
+					the clones inherit it, that reads as the identical picture
+					twice in a row. Swap the head of the pass with its neighbour
+					when that happens; with more than one project there is always
+					somewhere else for it to go.
+				*/
+				if (order.length > 1 && order[0] === previous) {
+					[order[0], order[1]] = [order[1], order[0]];
+				}
+				previous = order[order.length - 1];
+				passes.push(order);
+			}
+
+			/*
+				The strip is a loop, so the last tile is also the first tile's
+				left-hand neighbour. That join needs the same treatment.
+			*/
+			const first = passes[0];
+			const last = passes[passes.length - 1];
+			if (first.length > 1 && last[last.length - 1] === first[0]) {
+				[last[last.length - 1], last[last.length - 2]] = [
+					last[last.length - 2],
+					last[last.length - 1],
+				];
+			}
+
+			for (let c = 0; c < CYCLES; c++) {
+				const order = passes[c];
 				for (const index of order) {
 					const el = source[index].cloneNode(true) as HTMLElement;
 					el.style.width = `${iw}px`;

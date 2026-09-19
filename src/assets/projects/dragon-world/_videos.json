@@ -1,0 +1,20 @@
+[
+	{
+		"id": "dragon-world-polaroid-01",
+		"source": "POLAROID 1.mov",
+		"mp4": "/polaroids/dragon-world-polaroid-01.mp4",
+		"poster": "/polaroids/dragon-world-polaroid-01.jpg",
+		"width": 404,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "dragon-world-polaroid-02",
+		"source": "POLAROID 2.mov",
+		"mp4": "/polaroids/dragon-world-polaroid-02.mp4",
+		"poster": "/polaroids/dragon-world-polaroid-02.jpg",
+		"width": 396,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

@@ -1,0 +1,20 @@
+[
+	{
+		"id": "human-polaroid-01",
+		"source": "POLAROID VID1.mov",
+		"mp4": "/polaroids/human-polaroid-01.mp4",
+		"poster": "/polaroids/human-polaroid-01.jpg",
+		"width": 400,
+		"height": 640,
+		"orientation": "portrait"
+	},
+	{
+		"id": "human-polaroid-02",
+		"source": "POLAROID VID 2.mov",
+		"mp4": "/polaroids/human-polaroid-02.mp4",
+		"poster": "/polaroids/human-polaroid-02.jpg",
+		"width": 404,
+		"height": 640,
+		"orientation": "portrait"
+	}
+]

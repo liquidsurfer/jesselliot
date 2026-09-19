@@ -1,0 +1,81 @@
+[
+	{
+		"file": "london-calling-01.jpg",
+		"source": "HERO2.jpg",
+		"width": 931,
+		"height": 1296,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.331,
+		"topLuminance": 0.457,
+		"role": "hero"
+	},
+	{
+		"file": "london-calling-02.jpg",
+		"source": "HERO 1.jpg",
+		"width": 931,
+		"height": 1329,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.249,
+		"topLuminance": 0.226,
+		"role": "hero"
+	},
+	{
+		"file": "london-calling-03.jpg",
+		"source": "IMG_0386.jpg",
+		"width": 1179,
+		"height": 764,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.363,
+		"topLuminance": 0.236
+	},
+	{
+		"file": "london-calling-04.jpg",
+		"source": "IMG_0387.jpg",
+		"width": 925,
+		"height": 1308,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.187,
+		"topLuminance": 0.158
+	},
+	{
+		"file": "london-calling-05.jpg",
+		"source": "IMG_0388.jpg",
+		"width": 1179,
+		"height": 762,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.211,
+		"topLuminance": 0.132
+	},
+	{
+		"file": "london-calling-06.jpg",
+		"source": "IMG_0844.JPG",
+		"width": 2560,
+		"height": 1696,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.601,
+		"topLuminance": 0.78
+	},
+	{
+		"file": "london-calling-07.jpg",
+		"source": "TOP LANSCAPE.jpg",
+		"width": 1179,
+		"height": 771,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.376,
+		"topLuminance": 0.524
+	}
+]

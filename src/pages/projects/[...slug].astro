@@ -4,7 +4,15 @@ import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import ServiceTags from '../../components/ServiceTags.astro';
-import { galleryFor, coverFor } from '../../lib/gallery';
+import { galleryFor, coverFor, bandFor, sectionsFor } from '../../lib/gallery';
+import { justifyRows, targetHeightFor, flexFor, MAX_GALLERY_ROW } from '../../lib/justify';
+
+/** The polaroid clips build_assets.py derived, if this project has any. */
+type Polaroid = { id: string; mp4: string; poster: string; orientation: string };
+const videoManifests = import.meta.glob<{ default: Polaroid[] }>(
+	'/src/assets/projects/**/_videos.json',
+	{ eager: true },
+);
 
 export const getStaticPaths = (async () => {
 	// Drafts still build so Jess can preview them on a deploy preview URL; they
@@ -23,7 +31,74 @@ const { Content } = await render(project);
 const gallery = galleryFor(project);
 const cover = coverFor(project);
 const hero = cover;
-const rest = gallery.filter((image) => image.file !== hero?.file);
+
+// The signs band is rendered on its own, so it is held out of the grid rather
+// than appearing twice.
+const band = bandFor(project);
+const bandFiles = new Set(band.map((image) => image.file));
+
+/*
+	Sectioned projects — Nadia's three editorials — pair each write-up with its
+	own photographs down one page, rather than one write-up and then everything
+	at the bottom. Her brief: "flow projects 1, 2 and 3 on same page … WOMANHOOD
+	- write up and images", and no numbering.
+
+	The prose comes from frontmatter so it can sit beside its images; the images
+	come from the `section` the pipeline recorded per file.
+*/
+const grouped = sectionsFor(project);
+const sections = project.data.sections
+	.map((section) => ({
+		...section,
+		images: grouped.find((g) => g.section === section.slug)?.images ?? [],
+	}))
+	.filter((section) => section.images.length > 0 || section.body.trim());
+
+const sectionFiles = new Set(sections.flatMap((s) => s.images.map((i) => i.file)));
+
+const rest = gallery.filter(
+	(image) =>
+		image.file !== hero?.file &&
+		!bandFiles.has(image.file) &&
+		!sectionFiles.has(image.file),
+);
+
+/*
+	The collage. Justified rows at their natural proportions, per Jess: "fill
+	the whole page with a photo collage showcase so that we are seeing more of
+	the whole project at a time over the white space." Fewer photographs means
+	taller rows, which is her "if there are less Photos you can make some
+	bigger".
+*/
+const collage = (images: typeof rest) =>
+	justifyRows(images, {
+		targetRowHeight: targetHeightFor(images.length),
+		maxPerRow: 3,
+		maxRowHeight: MAX_GALLERY_ROW,
+	});
+
+const rows = collage(rest);
+
+/*
+	Credits move off the individual photographs and into one line at the foot:
+	"Every photo does not need to have 'Photographed by Diary of Ross'
+	underneath. Can we have a footnote at the bottom of each page."
+
+	Jess's own credits list is the source, not the per-image credits derived
+	from filenames. The filename patterns only recognise three photographers,
+	whereas she names Sara Stapar, Georgia Monsson, Patrick Baumhoefer and
+	others who never appear in a filename — deriving the footnote would
+	silently drop them.
+
+	So her credits are split on the word: photography lines become the
+	footnote, everything else stays under "Made with" as collaborators.
+*/
+const isPhotoCredit = (credit: string) => /photograph/i.test(credit);
+const photoCredits = project.data.credits.filter(isPhotoCredit);
+const madeWith = project.data.credits.filter((credit) => !isPhotoCredit(credit));
+
+const polaroids =
+	videoManifests[`/src/assets/projects/${project.id}/_videos.json`]?.default ?? [];
 
 const published = (await getCollection('projects', ({ data }) => !data.draft)).sort(
 	(a, b) => a.data.order - b.data.order,
@@ -45,6 +120,9 @@ const parent = project.data.parent
 	title={project.data.title}
 	description={project.data.summary}
 	ogImage={cover?.src.src}
+	overlay={Boolean(hero)}
+	floatNav={Boolean(hero)}
+	invertNav={Boolean(hero) && (hero?.topLuminance ?? 1) < 0.52}
 >
 	{
 		project.data.draft && (
@@ -72,7 +150,8 @@ const parent = project.data.parent
 			)
 		}
 
-		<header class="page project-header">
+		<div class="page header-row">
+		<header class="project-header">
 			{
 				parent && (
 					<p class="parent-link">
@@ -81,7 +160,10 @@ const parent = project.data.parent
 				)
 			}
 			<h1>{project.data.title}</h1>
-			<p class:list={['summary', { pending: isPending(project.data.summary) }]}>{project.data.summary}</p>
+			{/* No summary here. Jess: "take away the insight into the write up
+			    below the title" — the facts list, then the full write-up on
+			    scroll, do that work instead. `summary` stays in the schema; it
+			    is the page's meta description. */}
 			<dl class="project-facts">
 				{
 					project.data.client && (
@@ -103,6 +185,40 @@ const parent = project.data.parent
 			<ServiceTags tags={project.data.tags} />
 		</header>
 
+		{
+			polaroids.length > 0 && (
+				<div class="polaroids" data-polaroids>
+					{polaroids.slice(0, 3).map((clip, i) => (
+						<figure class="polaroid" style={`--i: ${i}`} data-polaroid>
+							{/*
+								Muted, looping and inline so iOS plays it in place
+								rather than going full screen, with the poster
+								standing in until the clip decodes.
+
+								No `autoplay` attribute and no preloading: these are
+								10-14s loops, and a looping clip over five seconds
+								that a visitor cannot stop fails WCAG 2.2.2. The
+								script below starts them only where motion is
+								welcome, which also keeps ~1.5MB off the initial
+								load for everyone else — they get the poster frame.
+							*/}
+							<video
+								src={clip.mp4}
+								poster={clip.poster}
+								muted
+								loop
+								playsinline
+								preload="none"
+								aria-hidden="true"
+								data-clip
+							/>
+						</figure>
+					))}
+				</div>
+			)
+		}
+		</div>
+
 		<div class="page project-writeup">
 			<blockquote class:list={['pull', { pending: isPending(project.data.pull) }]}>{project.data.pull}</blockquote>
 			<div class="prose">
@@ -111,37 +227,111 @@ const parent = project.data.parent
 		</div>
 
 		{
-			rest.length > 0 && (
+			sections.map((section) => (
+				<section class="part" aria-labelledby={`part-${section.slug}`}>
+					<div class="page part-head">
+						<h2 id={`part-${section.slug}`}>{section.title}</h2>
+						{section.body
+							.trim()
+							.split(/\n\s*\n/)
+							.map((para) => (
+								<p>{para.trim()}</p>
+							))}
+					</div>
+
+					{section.images.length > 0 && (
+						<div class="gallery">
+							{collage(section.images).map((row) => (
+								<div class="gallery-row">
+									{row.map((cell) =>
+										cell.image ? (
+											<figure class="gallery-item" style={`flex: ${flexFor(cell)}`}>
+												<Image
+													src={cell.image.src}
+													alt={cell.image.alt}
+													widths={[600, 1000, 1600]}
+													sizes="(max-width: 800px) 100vw, 50vw"
+													loading="lazy"
+												/>
+											</figure>
+										) : (
+											<div class="gallery-item filler" style={`flex: ${flexFor(cell)}`} aria-hidden="true" />
+										),
+									)}
+								</div>
+							))}
+						</div>
+					)}
+				</section>
+			))
+		}
+
+		{
+			rows.length > 0 && (
 				<section class="gallery" aria-label="Project gallery">
-					{rest.map((image, i) => (
-						<figure
-							class:list={['gallery-item', image.orientation, { wide: i % 5 === 0 }]}
-						>
-							<Image
-								src={image.src}
-								alt={image.alt}
-								widths={[600, 1000, 1600]}
-								sizes="(max-width: 800px) 92vw, 62vw"
-								loading="lazy"
-							/>
-							{(image.caption || image.credit) && (
-								<figcaption>
-									{image.caption && <span class="caption-text">{image.caption}</span>}
-									{image.credit && <span class="credit">Photograph by {image.credit}</span>}
-								</figcaption>
+					{rows.map((row) => (
+						<div class="gallery-row">
+							{row.map((cell) =>
+								cell.image ? (
+									<figure class="gallery-item" style={`flex: ${flexFor(cell)}`}>
+										<Image
+											src={cell.image.src}
+											alt={cell.image.alt}
+											widths={[600, 1000, 1600]}
+											sizes="(max-width: 800px) 100vw, 50vw"
+											loading="lazy"
+										/>
+										{cell.image.caption && <figcaption>{cell.image.caption}</figcaption>}
+									</figure>
+								) : (
+									/* Closes a short final row rather than letting two
+									   leftovers stretch across the full width. */
+									<div class="gallery-item filler" style={`flex: ${flexFor(cell)}`} aria-hidden="true" />
+								),
 							)}
-						</figure>
+						</div>
 					))}
 				</section>
 			)
 		}
 
 		{
-			project.data.credits.length > 0 && (
+			band.length > 0 && (
+				<section class="band" aria-label="Enigma signs">
+					<h2 class="label">Enigma signs</h2>
+					{/* Scrolls sideways, the same gesture as the landing strip.
+					    Jess drew this as a break in the grid, not another row. */}
+					<div class="band-rail">
+						{band.map((image) => (
+							<figure style={`flex: 0 0 ${Math.round(image.aspect * 62)}vh`}>
+								<Image
+									src={image.src}
+									alt={image.alt}
+									widths={[700, 1200, 1800]}
+									sizes="80vw"
+									loading="lazy"
+								/>
+							</figure>
+						))}
+					</div>
+				</section>
+			)
+		}
+
+		{
+			photoCredits.length > 0 && (
+				<p class="page photo-credit">
+					{photoCredits.join('. ')}
+				</p>
+			)
+		}
+
+		{
+			madeWith.length > 0 && (
 				<section class="page credits">
 					<h2 class="label">Made with</h2>
 					<ul>
-						{project.data.credits.map((credit) => (
+						{madeWith.map((credit) => (
 							<li>{credit}</li>
 						))}
 					</ul>
@@ -156,7 +346,84 @@ const parent = project.data.parent
 	</nav>
 </Base>
 
+<script>
+	/*
+		Play the polaroid clips only for visitors who have not asked for less
+		motion. Everyone else keeps the poster frame, a still of the same shot,
+		so the cluster reads the same either way.
+	*/
+	if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+		const clips = document.querySelectorAll<HTMLVideoElement>('[data-clip]');
+		for (const clip of clips) {
+			clip.preload = 'auto';
+			// A rejected play() is ordinary — a background tab, or a policy
+			// wanting a gesture first. The poster stays up, which is fine.
+			clip.play().catch(() => {});
+		}
+	}
+</script>
+
 <style>
+	/* One named part of a sectioned project: its heading and write-up on the
+	   page margin, its photographs full-bleed beneath, same as the main
+	   collage. No numbering — Jess was explicit about that. */
+	.part-head {
+		padding-block: var(--space-8) var(--space-5);
+		max-width: 64rem;
+	}
+
+	.part-head h2 {
+		font-size: var(--text-heading);
+		margin: 0 0 var(--space-4);
+	}
+
+	.part-head p {
+		margin: 0 0 var(--space-3);
+		font-size: var(--text-body);
+		line-height: var(--lh-relaxed);
+		color: var(--text-secondary);
+		max-width: 62ch;
+	}
+
+	/* A titled break in the grid that scrolls sideways — Jess drew an arrow and
+	   wrote "SCROLL HERE". Same gesture as the landing strip. */
+	.band {
+		padding-bottom: var(--space-9);
+	}
+
+	.band .label {
+		padding-inline: var(--page-margin);
+		margin: 0 0 var(--space-4);
+	}
+
+	.band-rail {
+		display: flex;
+		gap: 6px;
+		overflow-x: auto;
+		scroll-snap-type: x proximity;
+		padding-inline: var(--page-margin);
+		scrollbar-width: thin;
+	}
+
+	.band-rail figure {
+		margin: 0;
+		scroll-snap-align: center;
+	}
+
+	.band-rail :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.photo-credit {
+		font-size: var(--text-micro);
+		letter-spacing: var(--track-label);
+		text-transform: uppercase;
+		color: var(--text-muted);
+		padding-bottom: var(--space-6);
+	}
+
 	.draft-flag {
 		background: var(--surface-sunken);
 		padding: var(--space-3) var(--page-margin);
@@ -164,8 +431,100 @@ const parent = project.data.parent
 		color: var(--text-secondary);
 	}
 
+	/*
+	 * Jess: "place 2/3 of the polaroid videos next to the name so it is
+	 * showing a bit of process before you scroll." Title block left, cluster
+	 * right, both starting on the same line.
+	 */
+	.header-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+		gap: var(--space-8);
+		align-items: start;
+	}
+
+	.header-row:not(:has(.polaroids)) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	/*
+	 * Overlapping frames, each tipped a little off square. The whole point is
+	 * that it looks like three snapshots dropped on a desk, so the offsets are
+	 * deliberately not even.
+	 */
+	/*
+	 * The cluster has to fit its column with room to spare, because the hover
+	 * grows a frame and CSS transforms count towards scrollable overflow — an
+	 * oversized cluster here gives the whole document a horizontal scrollbar.
+	 *
+	 * The width budget, for n frames of width w overlapping by o (both as a
+	 * percentage of this box):  total = n·w − (n−1)·o
+	 * At n=3, w=46 and o=24 that is 138 − 48 = 90%, leaving 5% either side for
+	 * the rotation and the 1.14 hover to grow into.
+	 */
+	.polaroids {
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		/* No top padding: the cluster hangs from the same line the title sits
+		   on, so it cannot ride up over the hero above it. */
+		padding-block: 0 var(--space-8);
+		padding-inline: 5%;
+	}
+
+	.polaroid {
+		position: relative;
+		flex: 0 0 auto;
+		width: 46%;
+		margin: 0;
+		padding: 8px 8px 30px;
+		background: var(--paper);
+		box-shadow: 0 2px 18px rgb(0 0 0 / 0.14);
+		transform: rotate(calc((var(--i) - 1) * 2.4deg)) translateY(calc(var(--i) * 14px));
+		transform-origin: center;
+		transition: transform var(--dur-3) var(--ease-drift);
+	}
+
+	/* They overlap rather than sit in a row — the cluster has to read as a
+	   stack, not as a third gallery. */
+	.polaroid + .polaroid {
+		margin-inline-start: -24%;
+	}
+
+	.polaroid video {
+		display: block;
+		width: 100%;
+		height: auto;
+		background: var(--surface-sunken);
+	}
+
+	/*
+	 * "Hovering on the polaroid they move between each other shrinking and
+	 * growing depending on which one is hovering on." Hovering the cluster
+	 * shrinks all three; the one under the pointer overrides that and grows.
+	 */
+	@media (hover: hover) and (pointer: fine) {
+		.polaroids:hover .polaroid {
+			transform: rotate(calc((var(--i) - 1) * 2.4deg))
+				translateY(calc(var(--i) * 14px)) scale(0.92);
+		}
+
+		.polaroids .polaroid:hover {
+			z-index: 3;
+			transform: rotate(0deg) translateY(calc(var(--i) * 14px)) scale(1.14);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.polaroid,
+		.polaroids:hover .polaroid,
+		.polaroids .polaroid:hover {
+			transition: none;
+		}
+	}
+
 	.project-header {
-		padding-block: var(--space-8) var(--space-7);
+		padding-block: 0 var(--space-7);
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
@@ -209,9 +568,42 @@ const parent = project.data.parent
 	 * with --scrim-bottom protecting anything that sits over the lower edge.
 	 * Never a solid capsule behind the text.
 	 */
+	/*
+	 * The TOP LANDSCAPE runs to the top of the window with the nav floating
+	 * over it, so the project opens on the work rather than on a white band.
+	 * Nav.astro's overlay mode already does this on the homepage; this is the
+	 * same mechanism, switched on whenever a project has a hero.
+	 *
+	 * Height is a viewport fraction rather than the image's own proportions:
+	 * at 57% of viewport width the old hero pushed the title below the fold on
+	 * a laptop, which is a lot of ceremony before anyone reads the name.
+	 */
+	/*
+	 * A full-bleed band the nav floats over. Fixed by ratio rather than by
+	 * viewport height, so the proportion holds on any screen and the title
+	 * always clears the fold.
+	 *
+	 * The image is positioned absolutely on purpose. Astro's responsive image
+	 * styles set an intrinsic `aspect-ratio` that beat `height: 100%` and let
+	 * the photograph run 126px past the bottom of its own container, straight
+	 * through the title and the polaroids. Taking it out of flow ends that
+	 * argument rather than trying to win it with specificity.
+	 */
 	.hero {
 		position: relative;
-		margin: 0 0 var(--space-8);
+		margin: 0 0 var(--section-gap);
+		aspect-ratio: 2.35;
+		max-height: 74vh;
+		overflow: hidden;
+		background: var(--ink-900);
+	}
+
+	.hero :global(img) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	.hero :global(img) {
@@ -293,21 +685,35 @@ const parent = project.data.parent
 		margin-bottom: var(--space-4);
 	}
 
+	/*
+	 * The collage. Rows of two or three at their natural proportions, each row
+	 * filling the width exactly — see src/lib/justify.ts for why the flex
+	 * basis does the sizing. Hairline gutters, because Jess's examples have
+	 * the photographs almost touching; the old layout stacked one image per
+	 * row with --space-9 between, which is the white space she asked us to
+	 * take out.
+	 */
 	.gallery {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		gap: var(--space-9);
-		padding: 0 var(--page-margin) var(--space-9);
+		gap: 6px;
+		padding: 0 0 var(--page-foot);
+	}
+
+	.gallery-row {
+		display: flex;
+		gap: 6px;
 	}
 
 	.gallery-item {
 		margin: 0;
-		width: min(100%, 62rem);
+		min-width: 0;
 	}
 
-	.gallery-item.portrait {
-		width: min(100%, 42rem);
+	.gallery-item :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
 	}
 
 	.gallery-item.wide {
@@ -365,8 +771,16 @@ const parent = project.data.parent
 			position: static;
 			font-size: var(--text-subhead);
 		}
-		.gallery {
-			gap: var(--space-7);
+		.gallery-row {
+			flex-direction: column;
+		}
+
+		.header-row {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.polaroids {
+			padding-inline-start: 0;
 		}
 	}
 </style>

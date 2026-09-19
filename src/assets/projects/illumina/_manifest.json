@@ -1,0 +1,170 @@
+[
+	{
+		"file": "illumina-01.jpg",
+		"source": "HERO2.jpg",
+		"width": 1788,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.534,
+		"topLuminance": 0.664,
+		"role": "hero"
+	},
+	{
+		"file": "illumina-02.jpg",
+		"source": "HERO 1.png",
+		"width": 964,
+		"height": 1190,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.499,
+		"topLuminance": 0.674,
+		"role": "hero"
+	},
+	{
+		"file": "illumina-03.jpg",
+		"source": "illumina business card copy.png",
+		"width": 2560,
+		"height": 1707,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.6,
+		"topLuminance": 0.548
+	},
+	{
+		"file": "illumina-04.jpg",
+		"source": "IMG_0414.PNG",
+		"width": 2474,
+		"height": 2474,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.703,
+		"topLuminance": 0.752
+	},
+	{
+		"file": "illumina-05.jpg",
+		"source": "IMG_0416.TIF",
+		"width": 2474,
+		"height": 2474,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.698,
+		"topLuminance": 0.745
+	},
+	{
+		"file": "illumina-06.jpg",
+		"source": "IMG_0418.PNG",
+		"width": 2474,
+		"height": 2474,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.679,
+		"topLuminance": 0.707
+	},
+	{
+		"file": "illumina-07.jpg",
+		"source": "IMG_0422.PNG",
+		"width": 2474,
+		"height": 2474,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.558,
+		"topLuminance": 0.569
+	},
+	{
+		"file": "illumina-08.jpg",
+		"source": "IMG_0423.PNG",
+		"width": 2474,
+		"height": 2474,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.517,
+		"topLuminance": 0.481
+	},
+	{
+		"file": "illumina-09.jpg",
+		"source": "IMG_0426.PNG",
+		"width": 2474,
+		"height": 2474,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.726,
+		"topLuminance": 0.748
+	},
+	{
+		"file": "illumina-10.jpg",
+		"source": "SCRL_0080.jpg",
+		"width": 1803,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.573,
+		"topLuminance": 0.716
+	},
+	{
+		"file": "illumina-11.jpg",
+		"source": "SCRL_0081.jpg",
+		"width": 1780,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.643,
+		"topLuminance": 0.75
+	},
+	{
+		"file": "illumina-12.jpg",
+		"source": "SCRL_0082.jpg",
+		"width": 1777,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.61,
+		"topLuminance": 0.413
+	},
+	{
+		"file": "illumina-13.jpg",
+		"source": "SCRL_0083.jpg",
+		"width": 1785,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.566,
+		"topLuminance": 0.647
+	},
+	{
+		"file": "illumina-14.jpg",
+		"source": "SCRL_0085.jpg",
+		"width": 1786,
+		"height": 2560,
+		"orientation": "portrait",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.583,
+		"topLuminance": 0.545
+	},
+	{
+		"file": "illumina-15.jpg",
+		"source": "TOP LANDSCAPE .jpg",
+		"width": 2560,
+		"height": 1626,
+		"orientation": "landscape",
+		"credit": null,
+		"crop": "safe",
+		"luminance": 0.576,
+		"topLuminance": 0.6,
+		"role": "top-landscape"
+	}
+]
